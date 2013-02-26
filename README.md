@@ -16,6 +16,8 @@ Please note that the mySQL database contains user registration data with emails 
 
 # Support
 
+This codebase has not been updated since 2010.
+
 DarkFall Sage is released under the MIT license. Please fork and customise to your requirements.
 
 Contact me via GitHub if you require assistance in deploying a DarkFall Sage fork to your server or if you require any specific modifications.
