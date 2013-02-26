@@ -8,7 +8,7 @@ Please fork and hack away at DarkFallSage with the knowledge that I don't expect
 
 # mySQL Database & Assets
 
-Darkfall GoogleMaps tiles can be found here. These were generated using Photoshop and the Javascript file in /docs/tiler.jsx. The original large map is not available.
+Darkfall GoogleMaps tiles can be found [here](https://docs.google.com/file/d/0B2xRA2XRBSZaWUFJTjR3TTItWEE/edit?usp=sharing). These were generated using Photoshop and the Javascript file in [/docs/tiler.jsx](https://github.com/nazar/DarkFallSage/blob/master/docs/tiler.jsx). The original large map is not available.
 
 The DarkFallSage website is no longer live but the last good mySQL backup can be found [here](https://docs.google.com/file/d/0B2xRA2XRBSZaZXhfaldVTDFobW8/edit?usp=sharing) and related game assets files can be downloaded [here](https://docs.google.com/file/d/0B2xRA2XRBSZaQmJ4X0JXdklaS1k/edit?usp=sharing).
 
