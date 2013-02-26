@@ -1,0 +1,7 @@
+<tr id="reg_<%=spell_reagent.id-%>">
+  <td>
+    <%= select_tag "spell_reagent[#{spell_reagent.id}][item_id]", options_for_select(SpellReagent.spell_items_for_select, spell_reagent.item_id),
+        :class => 'spell_reagent_select', :id => "spell_reagent_select_#{spell_reagent.id}" -%>
+  </td>
+  <td><%= text_field_tag "spell_reagent[#{spell_reagent.id}][qty]", spell_reagent.qty, :id => "spell_reagen_qty_#{spell_reagent.id}" %></td>
+</tr>

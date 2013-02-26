@@ -1,0 +1,14 @@
+<table id="edit_drops" class="deps_table" cellpadding="0" cellspacing="0">
+  <tr>
+    <th>Item</th>
+    <th>Qty</th>
+    <th>Frequency</th>
+  </tr>
+  <% for drop in drops -%>
+    <%= render :partial => 'mobs/edit_drop', :locals => {:drop => drop} %>
+  <% end -%>
+  <tr id="drops_last_row">&nbsp;</tr>
+</table>
+<p>
+  <%= link_to 'Add Drop Item', drops_mobs_path, :id => 'add_drop' %>
+</p>

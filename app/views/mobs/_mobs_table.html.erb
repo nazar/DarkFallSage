@@ -1,0 +1,51 @@
+<% unless mobs.blank? -%>
+  <table id="<%= table_id ||= 'mobs_list' %>" cellpadding="0" cellspacing="0" class="sortable">
+    <tr class="head">
+      <th class="sortfirstasc">Name</th>
+      <th>Description</th>
+      <% if mobs && (mobs.first.respond_to?('quantity')) -%>
+        <th>Qty</th>
+        <% show_qty = true -%>
+      <% else -%>
+        <% show_qty = false -%>
+      <% end -%>
+      <% if mobs && (mobs.first.respond_to?('frequency')) -%>
+        <th title="frequency">Freq</th>
+        <% freq = true -%>
+      <% else -%>
+        <% freq=false -%>
+      <% end -%>
+      <th>Type</th>
+      <th title="Difficulty">Diff</th>
+      <th title="Caster">Cst</th>
+      <th title="Melee Weakness">MW</th>
+      <th title="Spell Weakness">SW</th>
+      <th>HP</th>
+      <th title="Threads">T</th>
+      <th title="Images">I</th>
+      <th title="Markers">M</th>
+    </tr>
+    <% for mob in mobs -%>
+      <tr>
+        <td class="title"><%= link_to mob.name, mob_path(mob) %></td>
+        <td class="description" title="<%= strip_tags(mob.description) %>"><%= strip_tags(truncate(mob.description, (trunc ||= 15))) %></td>
+        <% if show_qty -%>
+          <td><%= mob.quantity %></td>
+        <% end -%>
+        <% if freq -%>
+          <td class="info"><%= MobItem.frequency_types[mob.frequency.to_i].humanize unless MobItem.frequency_types[mob.frequency.to_i].blank? %></td>
+        <% end -%>  
+        <td><%= mob.mob_item_type_to_s.humanize %></td>
+        <td class="info number"><%= mob.difficulty_to_s.humanize unless mob.difficulty.blank? %></td>
+        <td class="info"><%= mob.caster_to_f %></td>
+        <td class="info" title="<%= h(mob.melee_weakness) %>"><%= truncate(h(mob.melee_weakness), 10) %></td>
+        <td class="info" title="<%= h(mob.spell_weakness) %>"><%= truncate(h(mob.spell_weakness), 10) %></td>
+        <td class="info number"><%= mob.hp %></td>
+        <td class="info number"><%= mob.topics_count.to_i %></td>
+        <td class="info number"><%= mob.images_count.to_i %></td>
+        <td class="info number"><%= mob.markers_count.to_i %></td>
+      </tr>
+    <% end -%>
+  </table>
+  <%= javascript_tag("SortableTable.init('#{table_id}');") %>
+<% end -%>

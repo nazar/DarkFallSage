@@ -1,0 +1,15 @@
+<div id="new_topic_block" style="display: none">&amp;nbsp;</div>
+<% unless topics.blank? %>
+  <p><%= link_to(image_tag('forums/t_new-a.png', :alt => 'New Topic'), new_topic_path(topicable.class.to_s, topicable.id), {:class => 'new_topic_link'}) %></p>
+  <%= will_paginate topics, :param_name => 'page_topics' %>
+  <%= render :partial => 'forums/topics_table', :locals => {:topics => topics} -%>
+  <%= will_paginate topics, :param_name => 'page_topics' %>
+<% else -%>
+  <p>No topics for this item. Be the first to <%= link_to 'discuss', new_topic_path(topicable.class.to_s, topicable.id) %> <%= h topicable.name %></p>
+<% end %>
+<div id="new_top_bottom" style="display: none">&nbsp;</div>
+<% if topics && (topics.length > 20) -%>
+  <p><%= link_to(image_tag('forums/t_new-a.png', :alt => 'New Topic'), new_topic_path(topicable.class.to_s, topicable.id), {:class => 'new_topic_link'}) %></p>
+<% end -%>
+<br clear="all" />
+<%= javascript_tag("jQuery('a.new_topic_link').attach(RemoteUpdateBlindShow, {update: '#new_topic_block', focus: '#topic_title'});") unless current_user.blank? %>

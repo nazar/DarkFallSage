@@ -1,0 +1,18 @@
+  <div class="colmask leftmenu">
+    <div class="colmid">
+      <div class="colleft">
+        <div class="col1">
+          <%= render :partial => '/layouts/google_banner' %>
+          <!-- google_ad_section_start -->
+          <%= yield %>
+          <!-- google_ad_section_end -->
+          <%= render :partial => '/layouts/google_banner' %>
+        </div>
+        <div class="col2">
+           <!-- google_ad_section_start(weight=ignore) -->
+           <%= render_left_blocks %>
+           <!-- google_ad_section_end -->
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,9 @@
+ <% content_block('Darkfall Mobs Database', {:header => 'h1'}) do -%>
+   <%= mob_action_links %>
+   <% filter = mobs_alphabetic_filter -%>
+   <div class="center"><%= filter %></div>
+   <%= will_paginate @mobs %>
+   <%= render :partial => 'mobs/mobs_table', :locals => {:mobs => @mobs} %>
+   <%= will_paginate @mobs %>
+   <div class="center"><%= filter %></div>
+ <% end -%>

@@ -1,0 +1,15 @@
+<div id="popup_item_info">
+  <table cellpadding="0" cellspacing="0">
+    <tr align="center"><td align="left"><%= image_tag @spell.icon.url, :width => '32px', :height => '32px' %></td><td align="left"><strong><%= @spell.name %></strong></td></tr>
+    <tr><td colspan="2"><%= format_red_cloth(@spell.description) %></td></tr>
+    <% unless @reagents.blank? %>
+      <tr>
+        <td colspan="2">
+          <strong>Spell Reagents</strong>
+          <%= render :partial => 'spell_reagents/render_spell_reagents_simple', :locals => {:spell_reagents => @reagents} %>
+        </td>
+      </tr>
+    <% end -%>
+
+  </table>
+</div>

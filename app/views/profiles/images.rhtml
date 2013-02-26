@@ -1,0 +1,44 @@
+<%= render :partial => 'navbar', :locals => {:action => :images} %>
+<table>
+  <tr>
+    <td id="profile_side" valign="top">
+      <% profile_box(:title => 'Profile Image') do %>
+        <%= profile_image(@user) %>
+      <% end -%>
+      <% profile_box(:title => 'Forum Avatar') do %>
+        <%= forum_avatar(@user) %>
+      <% end -%>
+    </td>
+    <td id="profile_content" valign="top">
+      <% profile_box(:title => 'Upload Profile Image') do %>
+        <% form_tag images_profile_path(@user.login), :multipart => true  do -%>
+          <p>Please note that the maximum profile image size is 225x300 pixels. We will automatically resize your profile image to fit this size.</p>
+          <p><%= file_field 'user', 'profile_image' %></p>
+          <p><%= check_box_tag 'use_for_forum', 1, false %> Resize Profile Image to 64x64 and use it as my Forum Avatar.<br /><em>Uncheck if you wish to upload a seperate Forum Avatar.</em> </p>
+          <p><%= submit_tag 'Upload', :disable_with => 'Uploading' %></p>
+        <% end -%>
+      <% end -%>
+      <% profile_box(:title => 'Clear Profile Image') do %>
+        <% form_tag images_profile_path(@user.login) do -%>
+          <p>Remove and clear your Profile Image.</p>
+          <%= hidden_field_tag  'clear_profile_image', 1 %>
+          <%= submit_tag 'Clear Profile Image' %>
+        <% end -%>
+      <% end -%>
+      <% profile_box(:title => 'Upload Forum Avatar') do %>
+        <% form_tag images_profile_path(@user.login), :multipart => true do -%>
+          <p>Please note that the maximum forum avatar size is 64x64 pixels. We will automatically resize your avatar to fit this size.</p>
+          <p><%= file_field 'user', 'avatar' %></p>
+          <p><%= submit_tag 'Upload', :disable_with => 'Uploading' %></p>
+        <% end -%>
+      <% end -%>
+      <% profile_box(:title => 'Clear Avatar Image') do %>
+        <% form_tag images_profile_path(@user.login) do -%>
+          <p>Remove and clear your Avatar.</p>
+          <%= hidden_field_tag 'clear_avatar', 1 %>
+          <%= submit_tag 'Clear Avatar Image' %>
+        <% end -%>
+      <% end -%>
+    </td>
+  </tr>
+</table>

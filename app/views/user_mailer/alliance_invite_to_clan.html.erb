@@ -1,0 +1,5 @@
+<p>Dear <%= @owner.name %></p>
+<p><strong><%= link_to @from_clan.name, clan_url(@from_clan) %></strong> has invited you to join their <strong><%= link_to @alliance.name, alliance_url(@alliance) %></strong> Alliance.</p>
+<p>To <strong>accept</strong> this proposal, click <%= link_to 'here', @accept %></p>
+<p>To <strong>reject</strong> this proposal, click <%= link_to 'here', @reject %></p>
+<p>Alternatively, view all pending Alliances in your clan's page, under the Alliances tab.</p>

@@ -1,0 +1,19 @@
+<% sortable_table(:id => 'applicants_table') do -%>
+  <tr class="head">
+    <th class="sortfirstasc">Applicant</th>
+    <th>Application</th>
+    <th>Submitted</th>
+    <th>Action</th>
+  </tr>
+  <% for application in applications do -%>
+    <tr>
+      <td><%= link_to application.user.name, profile_path(application.user.login) %></td>
+      <td><%= format_red_cloth(application.application) %></td>
+      <td><%= time_ago_in_words(application.created_at)  %> ago</td>
+      <td valign="middle">
+        <%= link_to 'accept', clan_application_accept_path(application) %><br />
+        <%= link_to 'reject', clan_application_reject_path(application) %>
+      </td>
+    </tr>
+  <% end -%>  
+<% end -%>

@@ -1,0 +1,22 @@
+<% content_block(h(@image.title), :header => 'h1') do -%>
+  <p><%= render_image_breadcrumb(@image) %></p>
+  <div class="image">
+    <script>
+     britepic_id="1348718";
+     britepic_src="<%= @image_url %>";
+     britepic_keywords="mmo mmorpg <%= @image.title %>";
+     britepic_show_ads=1;
+     britepic_show_menu=1;
+     britepic_caption="<%= @image.title %>";
+    </script>
+    <script src="http://www.britepic.com/britepic.js"></script>
+    <noscript><%= image_tag @image.picture.url(:large) %></noscript>    
+  </div>
+  <%= format_red_cloth(@image.description) %>
+  <div id="tab-threads">
+    <h3>Discussion</h3>
+    <div id="forums">
+      <%= render :partial => 'topics/list_topicable_topics', :locals => {:topics => @topics, :topicable => @image} %>
+    </div>
+  </div>
+<% end -%>

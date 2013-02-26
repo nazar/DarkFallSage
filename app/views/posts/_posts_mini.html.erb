@@ -1,0 +1,18 @@
+<table align="center" border="0" cellpadding="6" cellspacing="0">
+  <tr class="head" align="left">
+    <td>&nbsp;<strong>Topics</strong></td>
+    <td align="center" nowrap="nowrap" width="10%"><strong>Type</strong></td>
+    <td align="center" nowrap="nowrap" width="10%"><strong>Posted</strong></td>
+    <td align="center" nowrap="nowrap" width="5%"><strong>Rating</strong></td>
+  </tr>
+  <% for post in posts %>
+    <tr class="forum <%= cycle('even','odd') %>">
+      <td class="even">
+        <div class="post" title="<%= post.body %>"><%= link_to h(post.topic.title), topic_path(post.topic_id, :anchor => "post#{post.id}") %></div>
+      </td>
+      <td class="even" align="center" valign="middle"><%= forum_type_to_link(post.topic) %></td>
+      <td class="even posted" align="center" valign="middle"><%= time_ago_in_words(post.created_at) + ' ago' %></td>
+      <td class="even views" align="center" valign="middle"><%= post.rating %></td>
+    </tr>
+  <% end %>
+</table>

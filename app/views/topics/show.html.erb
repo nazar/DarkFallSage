@@ -1,0 +1,50 @@
+<% content_block("Back to #{link_to(@topicable.name, polymorphic_path(@topicable))}", :header => 'h1') do -%>
+  <div id="forums">
+    <div class="crumb clearfix">
+      <table cellspacing="0" cellpadding="0" class="right" style="width: 320px;">
+        <tr><td valign="top" align="right">
+          <img src="/images/forums/down-a.png">&nbsp;<a href="#threadbottom">Bottom</a>&nbsp;&nbsp;
+          <img src="/images/forums/left-a.png">&nbsp;<a href="<%=prev_topic_path(@topic)%>">Previous Topic</a>&nbsp;&nbsp;
+          <img src="/images/forums/right-a.png">&nbsp;<a href="<%=next_topic_path(@topic)%>">Next Topic</a>
+        </td></tr>
+      </table>
+      <% if @can_reply -%>
+        <a href="<%=reply_post_path(@last_post)%>" class="reply_link"><img src="/images/forums/t_reply-a.png"  alt="Post Reply" align="middle"></a>&nbsp;
+      <% end -%>
+      <a href="<%=new_topic_path(@topicable.class.to_s, @topicable)%>"><img src="/images/forums/t_new-a.png" alt="New Topic" align="middle"></a>
+    </div>
+    <a id="threadtop">&nbsp;</a>
+    <div class="block_title"><h2>Viewing Topic: <%= @topic.title %></h2></div>
+    <%= will_paginate @posts %>
+    <% for post in @posts do %>
+      <%= render :partial => '/posts/post',
+                 :locals => {:forum => @topicable, :topic => @topic, :post => post,
+                             :post_count => @posts.index(post)+1, :can_admin => @can_admin, :can_reply => @can_reply} %>
+    <% end %>
+    <div id="last_post">&nbsp;</div>
+    <%= will_paginate @posts %>
+    <a id="threadbottom">&nbsp;</a>
+    <table cellspacing="0" cellpadding="0" style="width: 320px;">
+      <tr><td valign="top" align="left">
+        <img src="/images/forums/up-a.png" style="margin: 0px; width: 17px; height: 17px;" alt="">&nbsp;<a href="#threadtop">Top</a>&nbsp;&nbsp;
+        <img src="/images/forums/left-a.png">&nbsp;<a href="<%=prev_topic_path(@topic)%>">Previous Topic</a>&nbsp;&nbsp;
+        <img src="/images/forums/right-a.png">&nbsp;<a href="<%=next_topic_path(@topic)%>">Next Topic</a>
+      </td></tr>
+    </table><br />
+    <% if @posts.length > 10 -%>
+      <div style="padding: 5px; float: left; text-align: left;">
+        <% if @can_reply -%>
+          <a href="<%=reply_post_path(@last_post)%>" class="reply_link"><img src="/images/forums/t_reply-a.png" alt="Post Reply" align="middle"></a>&nbsp;
+        <% end -%>
+        <a href="<%=new_topic_path(@topicable.class.to_s, @topicable)%>"><img src="/images/forums/t_new-a.png" alt="New Topic" align="middle"></a>
+      </div>
+    <% end -%>
+    <p><br clear="all" /></p>
+    <% if @can_reply -%>
+      <%= render :partial => '/posts/quick_reply', :locals => {:topic => @topic}%>
+    <% else -%>
+      <strong>Must be logged in to reply or post</strong>
+    <% end -%>  
+    <%= javascript_tag("jQuery('a.reply_link').attach(RemoteReplyBlindShow);") %>
+  </div>
+<% end -%>

@@ -1,0 +1,24 @@
+<div id="comment">
+  <% if !current_user -%>
+    <h2>Comments</h2>
+    <div class="step">
+      <p>Comments disabled for non-registered visitors.</p>
+    </div>
+  <% else -%>
+    <h2>Comments - <small>add your comment</small></h2>
+    <div class="step"><%= render :partial => "comments/add_comment", :locals => { :model => model } %> </div>
+  <% end -%>
+</div>
+<h2>What others have said:</h2>
+<div id="comments"></div>
+<% unless model.comments.blank? %>
+  <% for comment in model.comments %>
+    <%= render :partial => 'comments/comment_row', :locals => {:comment => comment, :commentable => model, :counter => model.comments.index(comment) + 1 } %>
+  <% end %>
+  <%= javascript_tag("jQuery('a.edit_comment').attach(AjaxEditArea, {container: 'comment'});") %>
+  <%= javascript_tag("jQuery('div.markup-area-link').attach(MarkupShowJSEnabled);") %>
+  <%= javascript_tag("jQuery('a.delete_comment').attach(MarkupConfirmRemove);") %>
+<% else %>
+  <p id="no_comments"><strong>No comments yet. Be the first the comment!</strong></p>
+<% end %>
+<div id="last_comment"></div>

@@ -1,0 +1,39 @@
+<% frequency ||= false -%>
+<% unless items.blank? -%>
+  <table id="<%= table_id ||= 'items_sell_list' %>" cellpadding="0" cellspacing="0" class="sortable">
+    <tr class="head">
+      <th class="nosort">&nbsp;</th>
+      <th class="sortfirstasc">Item</th>
+      <th>Quantity</th>
+      <% if frequency -%>
+        <th title="Frequency">Freq</th>
+      <% end -%>  
+      <th>Description</th>
+      <% unless hide.include?('item_type') -%>
+       <th>Type</th>
+      <% end -%>
+      <% unless hide.include?('item_sub_type') -%>
+        <th>Sub</th>
+      <% end -%>
+    </tr>
+    <% for item in items -%>
+      <tr>
+        <td class="icon"><%= link_to image_tag(item.icon_path, :alt => item.name), item_path(item), :class => 'info_popup' %></td>
+        <td class="title"><%= link_to item.name, item_path(item) %></td>
+        <td class="info number"><%= item.quantity %></td>
+        <% if frequency && item.respond_to?('frequency') -%>
+          <td class="info"><%= MobItem.frequency_types[item.frequency.to_i].humanize unless MobItem.frequency_types[item.frequency.to_i].blank? %></td>
+        <% end -%>  
+        <td class="description"><%= truncate(item.description, (trunc ||= 80)) %></td>
+        <% unless hide.include?('item_type') -%>
+          <td><%= link_to item.item_type_to_s, items_by_type_path(item.item_type) %></td>
+        <% end -%>
+        <% unless hide.include?('item_sub_type') -%>
+          <td><%= link_to item.item_subtype_to_s, items_type_sub_path(item.item_type, item.item_sub_type) %></td>
+        <% end -%>
+      </tr>
+    <% end -%>
+  </table>
+  <%= javascript_tag("SortableTable.init('#{table_id}');") %>
+  <%= javascript_tag("jQuery('a.info_popup').attach(Popup);") %>
+<% end -%>

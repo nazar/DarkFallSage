@@ -1,0 +1,7 @@
+<% for article in articles -%>
+  <div class="article_summary">
+    <% content_block(link_to article.title, article_view_path(article.id, article.title.to_permalink), :header => 'h2') do -%>
+      <%= truncate_article_with_more_link(article) %>
+    <% end -%>  
+  </div>
+<% end -%>

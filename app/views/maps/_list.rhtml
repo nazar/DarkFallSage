@@ -1,0 +1,19 @@
+<div id="markers_list_block">
+  <% unless markers.blank? %>
+    <label for="markers_list">Google Map Markers:</label><br />
+    <select name="markers_list" id="markers_list" size="5" multiple="multiple">
+      <%= options_for_select(markers.collect{|m|
+          coords = "#{m.xm.to_i}\'#{m.xs.to_i}\"#{m.xd}, #{m.ym.to_i}\'#{m.ys.to_i}\"#{m.yd}"
+          if m.title.length > 0
+            ["#{m.title[0,10]} - " << coords, m.id]
+          else
+            [coords, m.id]
+          end
+          }) %>
+    </select>
+    <%= submit_to_remote 'remove_marker','Remove Tag',
+                         :url => {:controller => 'maps', :action => 'remove_marker'},
+                         :with => 'getSelectedMarkers(markers_list)',
+                         :success => "editor_map.requeryMarkerDataAndClear();" %>
+  <% end %>
+</div>

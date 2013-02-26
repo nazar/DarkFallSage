@@ -1,0 +1,17 @@
+<% form_tag  reply_topic_path(topic), :name => 'quick_reply', :id => 'quick_reply' do -%>
+  <table class="outer" cellspacing="0" width="100%">
+    <tbody>
+    <tr class="head">
+      <th colspan="2">Post a Quick Reply</th>
+    </tr>
+    <tr align="left" valign="top" class="body">
+      <td class="even post_info">Message:</td>
+      <td class="odd"><%= markup_area('topic', 'body', {:rows => '13'}) %></td>
+    </tr>
+    <tr align="left" valign="top" class="body">
+      <td class="even">&nbsp;</td>
+      <td class="even foot" style="width:100%"><%= button_to('Post', :action => 'new', :id=>topic) %></td>
+    </tr>
+    </tbody>
+  </table>
+<% end -%>

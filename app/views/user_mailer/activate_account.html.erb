@@ -1,0 +1,8 @@
+<h2>Project Darkfall Account Activation</h2>
+<p>You are receiving this email because you have just registered on <%= link_to 'Project Darkfall', home_url -%>.</p>
+<p>Please follow this link in order to complete your account registration:</p>
+<p><%= link_to session_activate_url(@user.token), session_activate_url(@user.token) -%></p>
+<p>
+  Regards<br />
+  Darkfall Sage Administration
+</p>

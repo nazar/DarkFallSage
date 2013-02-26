@@ -1,0 +1,28 @@
+<table align="center" border="0" cellpadding="6" cellspacing="0">
+  <tr class="head" align="left">
+    <td>&nbsp;<strong>Topic</strong></td>
+    <td align="center" nowrap="nowrap" width="10%"><strong>Type</strong></td>
+    <td align="center" nowrap="nowrap" width="10%"><strong>Posted</strong></td>
+    <td align="center" nowrap="nowrap" width="5%"><strong>Replies</strong></td>
+    <td align="center" nowrap="nowrap" width="5%"><strong>Views</strong></td>
+    <td align="center" nowrap="nowrap" width="15%"><strong>Updated</strong></td>
+  </tr>
+  <% for topic in topics %>
+    <tr class="forum <%= cycle('even','odd') %>">
+      <td class="even">
+        <%= content_tag(:div,link_to(h(topic.title), topic_path(topic), :title => topic.last_post_body), :class => 'post', :title => topic.last_post_body ) %>
+        <div class="small">started by <%= link_to h(topic.user.pretty_name), profile_path(topic.user.login) %></div>
+      </td>
+      <td class="even" align="center" valign="middle"><%= forum_type_to_link(topic) %></td>
+      <td class="even posted" align="center" valign="middle"><%= time_ago_in_words(topic.created_at) + ' ago' %></td>
+      <td class="even replies" align="center" valign="middle"><%= topic.posts_count - 1%></td>
+      <td class="even views" align="center" valign="middle"><%= topic.hits%></td>
+      <td class="even last updated" align="right" valign="middle">
+        <% if (topic.posts_count > 1) && !topic.replied_by_user.blank? %>
+          <a href="<%=topic_path(topic, :anchor => "post#{topic.last_post_id}")%>"><%= time_ago_in_words(topic.replied_at) + ' ago' unless topic.replied_by_user.blank? %></a><br />
+          by: <%= link_to h(topic.replied_by_user.login), profile_path(topic.replied_by_user.login) if topic.replied_by %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

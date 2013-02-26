@@ -1,0 +1,5 @@
+<% application ||= clan.clan_applications.build -%>
+<% form_for :application, :url => {:action => :apply, :id => clan}, :html => {:class => 'form_layout' } do |f|  -%>
+  <%= render :partial => 'clan_applications/form', :locals => {:f => f} %>
+  <%= f.submit 'Submit Application' %><br/>
+<% end -%>

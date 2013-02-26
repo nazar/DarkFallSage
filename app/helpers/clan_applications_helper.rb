@@ -1,0 +1,2 @@
+module ClanApplicationsHelper
+end

@@ -1,0 +1,26 @@
+<fieldset>
+  <legend>Darkfall Skill </legend>
+  <%= f.label :name, 'Skill Name' %><%= f.text_field :name %><br/>
+  <%= f.label :icon %><%= f.file_field :icon  %>
+</fieldset>
+<fieldset>
+  <legend>Skill Type & Races</legend>
+  <%= f.label :skill_type%><%= f.select :skill_type, Skill.skill_types.sort{|a, b| a[1] <=> b[1]}.collect{|i|[i.last, i.first]} %><br/>
+  <%= f.label :limited_to_race, 'Limited to Race' %><%= f.select :limited_to_race, Skill.skill_race_limits_sorted_for_select %><br/>
+  <%= f.label :magic_school, 'Magic School?' %><%= f.check_box :magic_school %>
+</fieldset>
+<div id="sub_skill_type_block">
+  <% unless Skill.skill_sub_types[@skill.skill_type].blank? -%>
+    <%= render :partial => 'skill_properties_by_type', :locals => {:type => @skill.skill_type} %>
+  <% else -%>
+    &nbsp;
+  <% end -%>
+</div>
+<fieldset>
+  <legend>Skill Description</legend>
+  <%= markup_area 'skill', 'description' %>
+</fieldset>
+<fieldset>
+  <legend>Prerequisites</legend>
+  <%= render :partial => 'prereqs/edit_prereqs', :locals => {:prereqs => @skill.prereqs, :prereqable => @skill} %>
+</fieldset>

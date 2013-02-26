@@ -1,0 +1,83 @@
+<table>
+  <tr>
+    <td id="profile_side" valign="top">
+      <div id="profile_image">
+        <%= profile_image(@user) %>
+        <% unless @user.admin? -%>
+          <% profile_box(:title => 'Reputation') do -%>
+            <div id="profileRows">
+              <%= link_to 'Current Reputation', reputation_path %>: <strong><%= @user.counter.reputation %></strong>
+            </div>
+          <% end -%>
+        <% end -%>  
+        <% profile_box(:title => 'Forum Avatar') do -%>
+          <table cellpadding="0" cellspacing="0">
+            <tr>
+              <td align="center"><%= image_tag @user.avatar.url unless @user.avatar.blank? %></td></tr>
+          </table>
+        <% end -%>
+        <div id="profileRows">
+          <%= link_to 'Upload Image', images_profile_path(@user.login), :class => 'link' %>
+        </div>
+      </div>
+    </td>
+    <td id="profile_content" valign="top">
+      <div class="clearfix">
+        <% profile_box(:title => 'My Details', :block_class => 'profile_half', :header_link => @mine ? link_to('edit', edit_profile_path(current_user.login)) : nil) do %>
+          <table border="0" cellpadding="0" cellspacing="3">
+            <%= render_exist_light_row('Name',     @user.name ) %>
+            <%= render_exist_light_row('Gender',   @profile.gender_to_s ) %>
+            <%= render_exist_light_row('Age',      @profile.birth_day, @profile.birth_day.nil? ? '' : "#{distance_of_time_in_words_to_now(@profile.birth_day)}" ) %>
+            <%= render_exist_light_row('Joined',   @user.created_at, "#{distance_of_time_in_words_to_now(@user.created_at)} ago" ) %>
+            <%= render_exist_light_row('Country',  @profile.country ) %>
+            <%= render_exist_light_row('State',    @profile.state ) %>
+            <%= render_exist_light_row('AIM',      @profile.aim ) %>
+            <%= render_exist_light_row('Yahoo',    @profile.yahoo ) %>
+            <%= render_exist_light_row('MSN',      @profile.msn ) %>
+            <%= render_exist_light_row('Forum Posts',     @counter.posts_count ) %>
+          </table>
+        <% end %>
+        <% profile_box(:title => 'In Game', :block_class => 'profile_half', :header_link => @mine ? link_to('edit', edit_profile_path(@user.login)) : nil ) do %>
+          <table border="0" cellpadding="0" cellspacing="3">
+            <%= render_exist_light_row('Name',         @profile.game_nick) %>
+            <%= render_exist_light_row('Gender',       @profile.game_gender_to_s) %>
+            <%= render_exist_light_row('Race',         @profile.race_to_s) %>
+            <%= render_exist_light_row('Clan',         @profile.game_clan) %>
+            <%= render_exist_light_row('Processor',    @profile.pc_processor) %>
+            <%= render_exist_light_row('RAM',          @profile.pc_ram) %>
+            <%= render_exist_light_row('Video Card',   @profile.pc_video_card) %>
+            <%= render_exist_light_row('Video Driver', @profile.pc_video_driver_v) %>
+            <%= render_exist_light_row('HD Space',     @profile.pc_disk_space) %>
+          </table>
+        <% end %>
+      </div>
+      <% profile_box(:title => "About #{@user.name}", :block_class => 'profile_full') do %>
+        <% if @profile.bio -%>
+          <%= format_red_cloth(@profile.bio) %>
+        <% else -%>
+          <p>No description yet...</p>
+        <% end -%>
+      <% end %>
+      <% profile_box(:title => 'My Latest Forum Posts',
+                     :block_class => 'profile_full',
+                     :header_link => link_to('all', all_user_posts_path(@user.login))) do %>
+        <% unless @latest_posts.blank? -%>
+          <%= render :partial => 'posts/posts_mini', :locals => {:posts => @latest_posts} %>
+        <% else -%>
+          <p>No posts yet...</p>
+        <% end -%>
+      <% end -%>
+      <% profile_box(:title => 'My Latest Topics',
+                     :block_class => 'profile_full',
+                     :header_link => link_to('all', all_user_topics_path(@user.login))) do %>
+        <% unless
+           @latest_topics.blank? -%>
+          <%= render :partial => 'forums/topics_table', :locals => {:topics => @latest_topics}  %>
+        <% else -%>
+          <p>No topics yet...</p>
+        <% end -%>
+      <% end %>
+    </td>
+  </tr>
+</table>
+

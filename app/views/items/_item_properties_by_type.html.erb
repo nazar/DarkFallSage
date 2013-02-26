@@ -1,0 +1,75 @@
+<% #generic fields first -%>
+<% unless Item.item_sub_types[type].blank? -%>
+  <fieldset>
+    <legend>Item Sub Type</legend>
+    <%= select :item, :item_sub_type, Item.item_sub_types[type].sort{|a,b|a[1]<=>b[1]}.collect{|i|[i.last, i.first]} %><br/>
+  </fieldset>
+<% end -%>
+<fieldset>
+  <legend>Item Description</legend>
+  <%= markup_area 'item', 'description'  %>
+</fieldset>
+<fieldset>
+  <legend>General Properties</legend>
+  <%= label :item, :weight %><%= text_field :item, :weight %><br />
+  <%= label :item, :durability %><%= text_field :item, :durability %><br />
+  <%= label :item, :npc_cost, 'Price' %><%= text_field :item,  :npc_cost %><br />
+</fieldset>
+<% if type == 1 #object -%>
+<% elsif type == Item::ItemWeapon #weapon -%>
+  <fieldset>
+    <legend>Weapon Properties</legend>
+    <%= label :item, :weapon_rank %><%= text_field :item, :weapon_rank %><br />
+    <%= label :item, :weapon_basic_damage, 'Damage' %><%= text_field :item, :weapon_basic_damage %><br />
+    <%= label :item, :attack_speed %><%= text_field :item, :attack_speed %><br />
+  </fieldset>
+<% elsif Item.is_armour?(type) -%>
+  <fieldset>
+    <legend>Armour Properties</legend>
+    <%= label :item, :encumbrance %><%= text_field :item, :encumbrance %><br />
+  </fieldset>
+  <fieldset>
+    <legend>Protection</legend>
+    <%= label :item, :protect_acid, 'Acid' %><%= text_field :item, :protect_acid %><br />
+    <%= label :item, :protect_arcane, 'Arcane' %><%= text_field :item, :protect_arcane %><br />
+    <%= label :item, :protect_bludge, 'Bludgeoning' %><%= text_field :item, :protect_bludge %><br />
+    <%= label :item, :protect_cold, 'Cold' %><%= text_field :item, :protect_cold %><br />
+    <%= label :item, :protect_fire, 'Fire' %><%= text_field :item, :protect_fire %><br />
+    <%= label :item, :protect_holy, 'Holy' %><%= text_field :item, :protect_holy %><br />
+    <%= label :item, :protect_impact, 'Impact' %><%= text_field :item, :protect_impact %><br />
+    <%= label :item, :protect_light, 'Lightning' %><%= text_field :item, :protect_light %><br />
+    <%= label :item, :protect_malediction, 'Malediction' %><%= text_field :item, :protect_malediction %><br />
+    <%= label :item, :protect_mental, 'Mental' %><%= text_field :item, :protect_mental %><br />
+    <%= label :item, :protect_pierce, 'Piercing' %><%= text_field :item, :protect_pierce %><br />
+    <%= label :item, :protect_slash, 'Slashing' %><%= text_field :item, :protect_slash %><br />
+    <%= label :item, :protect_unholy, 'Unholy' %><%= text_field :item, :protect_unholy %><br />
+  </fieldset>
+<% elsif type == 4 #tool -%>
+<% elsif type == 5 #alchemy -%>
+  <fieldset>
+    <legend>Alchemy Properties</legend>
+    <%= label :item, :effects %><%= text_field :item, :effects %><br />
+    <%= label :item, :quality %><%= text_field :item, :quality %><br />
+  </fieldset>
+<% elsif type == 10 #alchemy -%>
+  <fieldset>
+    <legend>Alchemy Properties</legend>
+    <%= label :item, :effects %><%= text_field :item, :effects %><br />
+    <%= label :item, :quality %><%= text_field :item, :quality %><br />
+  </fieldset>
+<% elsif type == 6 #potion -%>
+  <fieldset>
+    <legend>Potion Properties</legend>
+    <%= label :item, :restore_health %><%= text_field :item, :restore_health %><br />
+    <%= label :item, :restore_mana %><%= text_field :item, :restore_mana %><br />
+  </fieldset>
+<% elsif type == 7 #food -%>
+  <fieldset>
+    <legend>Food Properties</legend>
+    <%= label :item, :nourishment_duration, 'Nourish Duration' %><%= text_field :item, :nourishment_duration %><br />
+  </fieldset>  
+<% end -%>
+<fieldset>
+  <legend>Prerequisites</legend>
+  <%= render :partial => 'prereqs/edit_prereqs', :locals => {:prereqs => @item.prereqs, :prereqable => @item} %>
+</fieldset>

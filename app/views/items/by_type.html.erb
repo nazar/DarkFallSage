@@ -1,0 +1,6 @@
+<% content_block("Viewing #{@item_type} Items", {:header => 'h1'}) do -%>
+  <p><%= link_to 'Add Item', new_item_path %> to database</p>
+  <div style="padding-top: 30px;">
+    <%= render :partial => 'items/items_table', :locals => {:items => @items, :hide => ['item_type'] + @show_quality, :show => @is_weapon? ['rank']: []} %>
+  </div>
+<% end -%>

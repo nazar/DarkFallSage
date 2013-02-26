@@ -1,0 +1,4 @@
+<% Prereq.get_needs_by_type_hash(objekt).each do |type, items| -%>
+  <h4 style="margin-bottom: 2px;"><%= Prereq.prereq_types[type].capitalize %></h4>
+  <%= render :partial => 'prereqs/items_table', :locals => {:items => items} %>
+<% end -%>

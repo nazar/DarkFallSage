@@ -1,0 +1,29 @@
+<% sortable_table(:id => 'clan_forums_admin') do -%>
+  <tr class="head">
+    <th>Name</th>
+    <th>Description</th>
+    <th>Access</th>
+    <th>Ranks</th>
+    <th>Topics</th>
+    <th class="sortfirstasc">Position</th>
+    <th>Action</th>
+  </tr>
+  <% for forum in forums do -%>
+    <tr>
+      <td><%= forum.name %></td>
+      <td><%= truncate(forum.description, 50) %></td>
+      <td><%= forum.access_type_to_s %></td>
+      <td><%= forum.required_rank_to_s %></td>
+      <td><%= forum.topics_count.to_i %></td>
+      <td><%= forum.position %></td>
+      <td>
+        <small>
+          <%= link_to 'edit', clan_forums_edit_path(forum) %>
+          <% unless forum.topics_count > 0 -%>
+            <br /><%= link_to 'delete', clan_forums_destroy_path(forum), :confirm => "Delete #{forum.name}?" %>
+          <% end -%>  
+        </small>
+      </td>
+    </tr>
+  <% end -%>
+<% end -%>

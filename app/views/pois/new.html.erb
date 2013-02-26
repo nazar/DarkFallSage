@@ -1,0 +1,6 @@
+<h1>Add Point of Interest to Database</h1>
+<%= error_messages_for 'poi' -%>
+<% form_for @poi, :html => {:class => 'form_layout' } do |f|  %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_tag('Create') %>
+<% end -%>

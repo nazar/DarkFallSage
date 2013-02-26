@@ -1,0 +1,17 @@
+<table id="<%= table_id ||= 'top_rep_list' %>" cellpadding="0" cellspacing="0" class="sortable">
+  <tr class="head">
+    <th>Name</th>
+    <th>Joined</th>
+    <th class="sortfirstdesc number">Reputation</th>
+  </tr>
+  <tr>
+    <% for user in users -%>
+     <tr>
+       <td><%= link_to h(user.name), profile_path(user.login) %></td>
+       <td><%= time_ago_in_words(user.created_at) -%> ago</td>
+       <td><%= user.counter.reputation %></td>
+     </tr>
+    <% end -%>
+  </tr>
+</table>
+<%= javascript_tag("SortableTable.init('#{table_id}');") %>

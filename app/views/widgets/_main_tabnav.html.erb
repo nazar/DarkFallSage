@@ -1,0 +1,64 @@
+<% render_tabnav :main, :generate_css => false do
+  
+    add_tab do |t|
+      t.named 'Home'
+      t.links_to :controller => '/home'
+    end
+
+    add_tab do |t|
+      t.named 'News'
+      t.links_to :controller => '/news'
+    end
+
+    add_tab do |t|
+      t.named 'Articles'
+      t.links_to :controller => '/articles'
+    end
+
+    add_tab do |t|
+      t.named 'Items'
+      t.links_to :controller => '/items'
+    end
+
+    add_tab do |t|
+      t.named 'Mobs'
+      t.links_to :controller => '/mobs'
+    end
+
+    add_tab do |t|
+      t.named 'Skills'
+      t.links_to :controller => '/skills'
+    end
+
+    add_tab do |t|
+      t.named 'Spells'
+      t.links_to :controller => '/spells'
+    end
+
+    add_tab do |t|
+      t.named 'Maps'
+      t.links_to :controller => '/maps'
+    end
+
+    add_tab do |t|
+      t.named 'POI'
+      t.links_to :controller => '/pois'
+    end
+
+    add_tab do |t|
+      t.named 'Clans'
+      t.links_to :controller => '/clans'
+    end
+
+    add_tab do |t|
+      t.named 'Forums'
+      t.links_to :controller => '/forums'
+    end
+
+    add_tab do |t|
+      nick = logged_in? ? "darkfallsage_#{current_user.login}" : 'darkfallsage_guest'
+      t.named 'IRC'
+      t.links_to :controller => 'irc'
+    end
+
+end -%>

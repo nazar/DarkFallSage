@@ -1,0 +1,3 @@
+<% content_block("Viewing Skills in #{@skill_type}", :header => 'h1') do -%>
+  <%= render :partial => 'skills/skills_table', :locals => {:skills => @skills} %>
+<% end -%>

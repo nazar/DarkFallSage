@@ -1,0 +1,5 @@
+<h1>Add Image to Database</h1>
+<% form_for @image, :html => { :multipart => true, :class => 'form_layout' } do |f| -%>
+  <%= render :partial => 'images/form', :locals => {:f => f} %>
+  <%= submit_tag('Upload') %>
+<% end -%>

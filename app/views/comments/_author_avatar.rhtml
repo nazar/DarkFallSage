@@ -1,0 +1,8 @@
+<div class="comment_avatar">
+  <% if comment.user %>
+    <%= comment.user.id %>
+    <%= image_tag comment.user.avatar.url unless comment.user.avatar.blank? %>
+  <% else %>
+    <img src="/images/anonymous.png" alt="Anonymous User" />
+  <% end %>
+</div>

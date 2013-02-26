@@ -1,0 +1,22 @@
+<table id="login" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <td colspan="2">
+      <div class="normal_header">Login to your DarkFall Sage account.</div>
+    </td>
+  </tr>
+  <tr>
+    <td class="row title">Username</td>
+    <td class="row"><%= text_field('user', 'login', :class => "inputtext") -%></td>
+  </tr>
+  <tr>
+    <td class="row title">Password</td>
+    <td class="row"><%= password_field('user', 'password', :class => "inputtext") -%></td>
+  </tr>
+  <tr><td colspan="2" align="center" style="padding-top: 10px;"><%= submit_tag('Login', :class => 'input_button', :disable_with => "Logging in") -%></td></tr>
+  <tr><td colspan="2" class="row" align="center" style="padding-top: 10px;">
+      <% link_to 'Forgot your password?', '/sessions/forgot_password' -%> <br />
+      <% link_to 'Resend Activation Email', '/sessions/resend_activation' -%>
+  </td></tr>
+  <tr><td colspan="2"><div class="normal_header">Not Registered?</div></td></tr>
+  <tr><td colspan="2"><%= link_to 'Signup', session_signup_path -%> for a FREE account.</td></tr>
+</table>

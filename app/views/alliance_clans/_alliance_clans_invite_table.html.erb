@@ -1,0 +1,24 @@
+<% sortable_table(:id => id) do -%>
+  <tr class="head">
+    <th>From Clan</th>
+    <th>Alliance</th>
+    <th>Submitted</th>
+    <th>Status</th>
+    <% if can_admin -%>
+      <th>Action</th>
+    <% end -%>
+  </tr>
+  <% for pending in alliance_clans -%>
+    <tr>
+      <td><%= link_to pending.alliance.lead_clan.name, clan_path(pending.alliance.lead_clan) %></td>
+      <td><%= link_to pending.alliance.name, alliance_path(pending.alliance) %></td>
+      <td><%= time_ago_in_words pending.created_at %> ago</td>
+      <td><%= pending.status_to_s.humanize %></td>
+      <% if can_admin -%>
+        <td>
+          <%= alliance_clans_invite_action_column(pending) %>
+        </td>
+      <% end -%>
+    </tr>
+  <% end -%>
+<% end -%>

@@ -1,0 +1,5 @@
+<% form_tag '/comments/add_comment', {:id => "add_comment_#{@comment.id}"} do %>
+  <%= render :partial => 'comments/form', :locals => {:model => model} %>
+  <%= javascript_tag("jQuery('form#add_comment_#{@comment.id}').attach(MarkupAreaFormPostAndScoll);") %>
+<% end %>
+

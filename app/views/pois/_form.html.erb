@@ -1,0 +1,9 @@
+<fieldset>
+  <legend>Points of Interested Properties</legend>
+  <%= f.label :name, 'Name' %><%= f.text_field :name %><br/>
+  <%= f.label :poi_type, 'POI Type' %><%= f.select :poi_type, Poi.poi_types_for_select, :id => 'poi_type' %>
+</fieldset>
+<fieldset>
+  <legend>Description</legend>
+  <%= markup_area 'poi', 'description' %>
+</fieldset>

@@ -1,0 +1,29 @@
+<% hide ||= [] -%>
+<% sortable_table(:id => id) do -%>
+  <tr class="head">
+    <th>From Clan</th>
+    <% unless hide.include?(:alliance) -%>
+      <th>Alliance</th>
+    <% end -%>
+    <th>Submitted</th>
+    <th>Status</th>
+    <% if can_admin -%>
+      <th>Action</th>
+    <% end -%>  
+  </tr>
+  <% for pending in alliance_clans -%>
+    <tr>
+      <td><%= link_to pending.clan.name, clan_path(pending.clan) %></td>
+      <% unless hide.include?(:alliance) -%>
+        <td><%= link_to pending.alliance.name, alliance_path(pending.alliance) %></td>
+      <% end -%>  
+      <td><%= time_ago_in_words pending.created_at %> ago</td>
+      <td><%= pending.status_to_s.humanize %></td>
+      <% if can_admin -%>
+        <td>
+          <%= alliance_clans_action_column(pending) %>
+        </td>
+      <% end -%>  
+    </tr>
+  <% end -%>  
+<% end -%>

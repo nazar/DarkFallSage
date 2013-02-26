@@ -1,0 +1,15 @@
+  <% content_block('DarkFall Sage Open Forums') do -%>
+    <div id="index_welcome">
+      <p class="desc">To start viewing messages, select the forum that you want to visit from the list below. Please register for a free account if you wish to either start a new topic or reply to any posts.</p>
+      <p class="desc">Also note that all items, skills, spells, mobs and Points of Interest have a forum each. Post any questions or information for these objects against the appropriate object.</p>
+    </div>
+    <% if @forums.length > 0 %>
+      <div class="block_title"><h2>Public Forums</h2></div>
+      <%= render :partial => '/forums/forum_list_block', :locals => {:forums => @forums} %>
+    <% end %>
+  <% end -%>
+  <% content_block('Recent Topics', :header => 'h2') do -%>
+    <%=     render :partial => 'forums/topics_table',
+           :locals => {:topics => Topic.and_public_clans.all(:limit => 30, :order => 'replied_at desc', :include => [:posts, :user, :replied_by_user, :last_post])}
+     %>
+  <% end -%>

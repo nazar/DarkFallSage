@@ -1,0 +1,29 @@
+<% content_block(@show_title, :header => 'h2') do -%>
+  <p>Previous Revisions: <%= @revisions.collect{|rev| link_to(rev.first, mob_revisions_path(rev.last, rev.first))}.join('&nbsp;&nbsp;') %></p>
+  <%= render :partial => 'mobs/show_block',
+             :locals => {:title => h(@mob.name.humanize), :mob => @mob, :last_approved => @last_approved,
+                         :drops => @drops, :skins => @skins, :casts => @casts, :item_sells => @item_sells, :spell_sells => @spell_sells,
+                         :topics => @topics, :images => @images} %>
+  <% if @mob.approved_by.blank? -%>
+    <div class="padded-top">
+      <% form_tag mob_approve_path(@mob) do -%>
+        <%= submit_tag "Approve Revision #{@mob.revisable_number}", :name => 'approve' %>
+        <%= submit_tag "Reject Revision #{@mob.revisable_number}", :name => 'reject' %>
+      <% end -%>
+    </div>
+  <% end -%>  
+  <div class="padded-top">
+    <% form_tag mob_revert_path(@mob) do -%>
+      <%= submit_tag "Revert To" %>
+      <%= select_tag 'revert', options_for_select(@revisions.collect{|rev| [rev.first, rev.first]} ) %>
+    <% end -%>
+  </div>
+  <p>Previous Revisions: <%= @revisions.collect{|rev| link_to(rev.first, mob_revisions_path(rev.last, rev.first))}.join('&nbsp;&nbsp;') %></p>
+<% end -%>
+
+<% content_block('Versioned View', :header => 'h2', :id => 'mob_revision_block') do -%>
+  <%= render :partial => 'mobs/show_block',
+             :locals => {:title => @rev_title, :mob => @rev_mob, :last_approved => @last_approved,
+                         :drops => @rev_drops, :skins => @rev_skins, :casts => @rev_casts, :item_sells => @rev_item_sells, :spell_sells => @rev_spell_sells,
+                         :topics => nil, :images => nil, :tabs => 'rev_tabs', :hide => [:topics, :images, :maps, :edit]} %>
+<% end -%>

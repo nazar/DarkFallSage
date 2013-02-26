@@ -1,0 +1,8 @@
+<% content_block(link_to(item.title, view_news_path(item)) + ' - posted in ' + item.categories.collect{|cat| link_to cat.category, news_category_path(cat)}.join(', '), {:header => 'h2'}) do -%>
+  <div class="news_post_info">
+    Posted by <%= link_to item.user.pretty_name, profile_path(item.user.login) %> <%= time_ago_in_words(item.created_at) %> ago
+  </div>
+  <div class="news_item">
+    <%= truncate_with_more_link(item) %>
+  </div>
+<% end -%>

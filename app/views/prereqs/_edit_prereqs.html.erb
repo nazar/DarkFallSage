@@ -1,0 +1,17 @@
+<table id="edit_prereqs" cellpadding="0" cellspacing="0">
+  <tr>
+    <th>Type</th>
+    <th>Object</th>
+    <th>Qty/Lvl</th>
+  </tr>
+  <% for prereq in prereqs -%>
+    <%= render :partial => 'prereqs/edit_prereq', :locals => {:prereq => prereq} %>
+  <% end -%>
+  <tr id="last_row">&nbsp;</tr>
+</table>
+<p>
+  <%= link_to 'Add Prerequisite', prereq_line_path, :id => 'add_prereq' %>
+</p>
+<%= javascript_tag("jQuery('a#add_prereq').attach(RemoteGetAndInsertBefore, {before: '#last_row'});") %>
+<%= javascript_tag("jQuery('.prereq_type_select').attach(RemoteAbilityChangeGetAndReqObject, {target: '#pre_req_items'});") %>
+

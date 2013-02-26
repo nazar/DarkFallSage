@@ -1,0 +1,4 @@
+<fieldset>
+  <legend>Skill Sub Type</legend>
+  <%= select :skill, :skill_sub_type, Skill.skill_sub_types[type].sort{|a,b|a[1]<=>b[1]}.collect{|i|[i.last, i.first]}, { :include_blank => true } %><br/>
+</fieldset>

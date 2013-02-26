@@ -1,0 +1,9 @@
+<% can_upload = imageable.respond_to?('can_upload_images?') ? imageable.can_upload_images?(current_user) : true #can upload images by default..unless stated otherwise -%>
+<% if can_upload -%>
+  <p><%= link_to 'Upload', new_image_path(imageable.class.to_s, imageable.id) %> images.</p>
+<% end -%>
+<% unless images.blank? -%>
+  <%= render :partial => 'images/images_block', :locals => {:images => images} %>
+<% else -%>
+  <p>No images yet...</p>
+<% end -%>

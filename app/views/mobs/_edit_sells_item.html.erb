@@ -1,0 +1,9 @@
+<tr id="item_sell_<%=item.id-%>">
+  <td>
+    <%= select_tag "item_sell[#{item.id}][item_id]", options_for_select(Item.all(:order => 'name').collect{|obj| [obj.name.capitalize, obj.id] }, item.item_id),
+        :id => "item_sell_id_#{item.id}" %>
+  </td>
+  <td>
+    <%= text_field_tag "item_sell[#{item.id}][quantity]", item.quantity %>
+  </td>
+</tr>

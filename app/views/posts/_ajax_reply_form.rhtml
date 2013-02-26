@@ -1,0 +1,5 @@
+<% form_tag reply_topic_path(topic), :id => 'forumform', :name => 'forumform' do  -%>
+  <%= render :partial => 'posts/post_form', :locals => {:forum => forum, :topic => topic, :post => post} %>
+  <%= javascript_tag("jQuery('#cancel').attach(RemoteUpdateBlindClose, {update: '#reply_block_#{post.id}'});") %>    
+<% end -%>
+<br />

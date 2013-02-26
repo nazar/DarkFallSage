@@ -1,0 +1,11 @@
+<fieldset>
+  <legend>Forum Properties</legend>
+  <%= f.label :name, 'Name' %><%= f.text_field :name %><br/>
+  <%= f.label :access_type %><%= f.select :access_type, forum_access_type_select_options %><br/>
+  <%= f.label :required_rank, 'Limit to Rank' %><%= f.select :required_rank, forum_rank_select_options(:all_ranks => true) %>&nbsp;<em> or higher. Applicable only if forum is <strong>Members Only</strong></em><br/>
+  <%= f.label :position, 'Display Order' %><%= f.text_field :position %>&nbsp<small><em>i.e. use 10 or 20 etc... leave a gap in the numbers to aid future reordering</em></small><br/>
+</fieldset>
+<fieldset>
+  <legend>Forum Description</legend>
+  <%= markup_area 'forum', 'description' %>
+</fieldset>

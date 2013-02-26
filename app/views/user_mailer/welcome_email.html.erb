@@ -1,0 +1,10 @@
+<h2>Project Darkfall Account Information</h2>
+<p>You are receiving this email because you have just registered on <%= link_to 'Project Darkfall', home_url -%>.</p>
+<p>Please keep this email safe as it contains your login details.</p>
+<dl>
+  Please use the following username and password to log into your <%= link_to 'Project Darkfall', home_url -%> account: <br />
+  login url: <%= link_to session_login_url, session_login_url -%> <br />
+  username : <%= @user.login -%> <br />
+  password : <%= @password -%>
+</dl>
+<p><strong>Please note that you will not be able to login into Project Darkfall until you have activated your account. Your activation link has been sent in a separate email.</strong></p>

@@ -1,0 +1,20 @@
+<% sortable_table(:id => 'clan_invites') do -%>
+  <tr class="head">
+    <th class="sortfirstasc">Member</th>
+    <th>Status</th>
+    <th>Inivitation Sent</th>
+    <% if can_admin -%>
+      <th>Action</th>
+    <% end -%>  
+  </tr>
+  <% for invite in invites -%>
+    <tr>
+      <td><%= link_to invite.invitee.name, profile_path(invite.invitee.login) %></td>
+      <td><%= time_ago_in_words invite.created_at %> ago.</td>
+      <td><%= invite.response_to_s %></td>
+      <% if can_admin -%>
+        <td><%= link_to 'delete', clan_invite_delete_path(invite), :confirm => 'Delete this invitation?' %></td>
+      <% end -%>
+    </tr>
+  <% end -%>  
+<% end -%>

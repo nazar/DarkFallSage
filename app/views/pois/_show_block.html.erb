@@ -1,0 +1,77 @@
+<% hide ||= []  %>
+<% tabs ||= 'tabs'  %>
+<% content_block(title, :header => 'h1') do  -%>
+  <p><%= format_red_cloth(poi.description) %></p>
+  <table>
+    <tr>
+      <td width="50%" valign="top">
+        <table cellpadding="0" cellspacing="0" class="item_properties">
+          <%= poi_table_row poi, 'poi_type_to_s', 'Type', poi.poi_type_to_s.humanize %>
+        </table>
+      </td>
+      <td valign="top" align="right">
+        <table cellpadding="0" cellspacing="0" class="item_properties">
+          <%= poi_table_row poi, 'user', 'Added By', link_to(h(poi.user.login), profile_path(poi.user.login)) %>
+          <% if Moderator.db_moderator?(current_user) -%>
+            <%= poi_table_row poi, 'revision_number', 'Revision' %>
+            <%= poi_table_row poi, 'revisions', 'Total Revions', link_to(poi.revisions.length.to_i + 1, poi_revisions_path(poi, nil)) if poi.respond_to?('revisions')%>
+            <%= poi_table_row poi, 'updater', 'Updated By', link_to(h(poi.updater.login), profile_path(poi.updater.login)) unless poi.updater.blank? %>
+            <%= poi_table_row poi, 'updated_at', 'Updated At', poi.updated_at.strftime("%B %d, %Y") %>
+            <% if last_approved = Poi.last_approved(poi) -%>
+              <%= poi_table_row last_approved, 'revision_number', 'Last Approved Rev', last_approved.revision_number %>
+              <%= poi_table_row last_approved, 'revision_number', 'Approved By', last_approved.user.login %>
+            <% end -%>
+          <% end %>
+        </table>  
+      </td>
+    </tr>
+  </table>
+  <% unless hide.include?(:edit) -%>
+    <div class="padded-top clearfix">
+      <% form_tag poi_edit_submit_path(poi), :style => 'float:left' do -%>
+          <%= submit_tag 'Edit', :name => 'edit' %>
+          <% if Moderator.db_moderator?(current_user) -%>
+            <%= submit_tag 'Delete', :name => 'delete', :confirm => "Delete Point of Interest #{h(poi.name)}" %>
+          <% end -%>
+      <% end -%>
+      <% if current_user && (not Moderator.db_moderator?(poi.user)) && (poi.revisable_number == 1) && (poi.approved_by.blank?) -%>
+        <% form_tag poi_approve_path(poi), :style => 'float:left; padding-left: 3px;' do -%>
+          <%= submit_tag "Approve Submission", :name => 'approve' %>
+          <%= submit_tag "Reject Submission", :name => 'reject' %>
+        <% end -%>
+      <% end -%>
+    </div>
+  <% end -%>
+  <% unless hide.include?(:tabs) -%>
+    <div id="<%= tabs %>" style="margin-top: 20px;">
+      <ul>
+        <% unless hide.include?(:maps) -%><li><a href="#tab-map">POI Locations (<%= poi.markers_count %>)</a></li><% end -%>
+        <% unless hide.include?(:topics) -%><li><a href="#tab-threads">Threads (<%= poi.topics_count.to_i %>)</a></li><% end -%>
+        <% unless hide.include?(:images) -%><li><a href="#tab-images">Images (<%= poi.images_count %>)</a></li><% end -%>
+      </ul>
+      <% unless hide.include?(:maps) -%>
+        <div id='tab-map'>
+          <p><%= link_to_remote('Add/Edit ', :url => add_map_path(poi.class.to_s, poi.id), :id => 'add_map') %> my Point of Interest locations to the Darkfall Map.</p>
+          <% unless poi.markers.blank? -%>
+            <%= render :partial => 'maps/map_viewer', :locals => {:data_url => poi_markers_path(poi.id)} %>
+          <% else -%>
+            <div id="google_map">&nbsp;</div>
+          <% end -%>
+        </div>
+      <% end -%>
+      <% unless hide.include?(:topics) -%>
+        <div id="tab-threads">
+          <div id="forums">
+          <%= render :partial => 'topics/list_topicable_topics', :locals => {:topics => topics, :topicable => poi} %>
+          </div>
+        </div>
+      <% end -%>
+      <% unless hide.include?(:images) -%>
+        <div id="tab-images">
+          <%= render :partial => 'images/images_tab', :locals => {:images => images, :objekt => poi} %>
+        </div>
+      <% end -%>
+    </div>
+  <% end -%>
+  <%= javascript_tag "(function($){ $('##{tabs}').tabs(); })(jQuery);" %>
+<% end -%>

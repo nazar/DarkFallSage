@@ -1,0 +1,13 @@
+<table id="edit_skins" class="deps_table" cellpadding="0" cellspacing="0">
+  <tr>
+    <th>Item</th>
+    <th>Qty</th>
+  </tr>
+  <% for skin in skins -%>
+    <%= render :partial => 'mobs/edit_skin', :locals => {:skin => skin} %>
+  <% end -%>
+  <tr id="skins_last_row">&nbsp;</tr>
+</table>
+<p>
+  <%= link_to 'Add Skin Item', skins_mobs_path, :id => 'add_skin' %>
+</p>

@@ -1,0 +1,14 @@
+<tr id="req_<%=prereq.id-%>">
+  <td>
+    <%= select_tag "prereq[#{prereq.id}][prereq_type]", options_for_select(Prereq.prereq_types_for_select, prereq.need_type),
+            :class => 'prereq_type_select', :id => "prereq_prereq_type_#{prereq.id}" -%>
+  </td>
+  <td>
+    <span id="<%= "pre_req_items_#{prereq.id}" %>"> 
+      <%= render :partial => 'prereqs/prereq_items_by_type', :locals => {:prereq => prereq} %>
+    </span>
+  </td>
+  <td>
+    <%= text_field_tag "prereq[#{prereq.id}][qty]", prereq.qty   %>
+  </td>
+</tr>

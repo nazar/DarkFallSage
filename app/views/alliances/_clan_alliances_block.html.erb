@@ -1,0 +1,39 @@
+<div id="alliances-tab" style="margin-top: 20px;">
+  <ul>
+    <% if clan_invites.length > 0 -%>
+      <li><a href="#tab-invites">Pending Clan Invites</a></li>
+    <% end -%>
+    <% if can_admin && (pending.length > 0) -%>
+      <li><a href="#tab-pending">Pending Alliance Requests (<%= pending.length %>)</a></li>
+    <% end -%>  
+    <% unless own_alliances.blank? -%>
+      <li><a href="#tab-own">Alliance Owner (<%= own_alliances.length.to_i %>)</a></li>
+    <% end -%>  
+    <% unless in_alliances.blank? -%>
+      <li><a href="#tab-in">Member of Alliance (<%= in_alliances.length.to_i %>)</a></li>
+    <% end -%>
+  </ul>
+  <% if clan_invites.length > 0 -%>
+    <div id="tab-invites">
+      <%= render :partial => 'alliance_clans/alliance_clans_invite_table', :locals => {:alliance_clans => clan_invites, :can_admin => can_admin} %>
+    </div>
+  <% end -%>
+  <% if can_admin && (pending.length > 0) -%>
+    <div id="tab-pending">
+       <%= render :partial => 'alliance_clans/alliance_clans_table', :locals => {:can_admin => can_admin, :alliance_clans => pending} %>
+    </div>
+  <% end -%>  
+  <% unless own_alliances.blank? -%>
+    <div id="tab-own">
+      <%= render :partial => 'alliances/alliances_table', :locals => {:alliances => own_alliances, :clan => clan,
+                                                                      :can_admin => can_admin, :id => 'sortable_alliances_own'} %>
+    </div>
+  <% end -%>
+  <% unless in_alliances.blank? -%>
+    <div id="tab-in">
+      <%= render :partial => 'alliances/alliances_table', :locals => {:alliances => in_alliances, :clan => clan, :show => [:owner],
+                                                                      :can_admin => can_admin, :id => 'sortable_alliances_in'} %>
+    </div>
+  <% end -%>
+</div>
+<%= javascript_tag "(function($){ $('#alliances-tab').tabs(); })(jQuery);" %>

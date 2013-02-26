@@ -1,0 +1,9 @@
+<%= f.hidden_field :clan_owner_id %>
+<fieldset>
+  <legend>Alliance Properties</legend>
+  <%= f.label :name, 'Name' %><%= f.text_field :name %><br/>
+</fieldset>
+<fieldset>
+  <legend>Treaty</legend>
+  <%= markup_area 'alliance', 'treaty' %>
+</fieldset>

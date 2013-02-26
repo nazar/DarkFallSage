@@ -1,0 +1,5 @@
+<% content_block('Unapproved Mobs', {:header => 'h1'}) do -%>
+  <%= will_paginate @mobs %>
+  <%= render :partial => 'mobs/mobs_table', :locals => {:mobs => @mobs} %>
+  <%= will_paginate @mobs %>
+<% end -%>

@@ -1,0 +1,15 @@
+<h1>Editing <%= h @poi.name %></h1>
+<% form_for @poi, :html => {:class => 'form_layout' } do |f|  %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_tag('Update') %>
+<% end -%>
+<br clear="all"/>
+<% if @edit_map -%>
+  <div id="map_edit_block">
+    <fieldset>
+      <legend>POI Locations</legend>
+      <%= render :partial => 'maps/markable_edit', :locals => {:markable => @poi, :data_url => poi_markers_path(@poi.id), :markers => @markers} %>
+    </fieldset>
+  </div>
+<% end -%>  
+<%= javascript_tag("jQuery('#mob_mob_type').attach(RemoteGetMobPropertiesForm, {form: '#edit_poi_#{@poi.id}', update: '#mob_properties'});") %>

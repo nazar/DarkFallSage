@@ -1,0 +1,7 @@
+<% content_block('Create New Clan', :header => 'h1') do -%>
+  <%= error_messages_for 'clan' %>
+  <% form_for @clan, :html => {:multipart => true, :class => 'form_layout' } do |f|  -%>
+    <%= render :partial => 'clans/form', :locals => {:f => f} %>
+    <%= f.submit 'Create Clan' %>
+  <% end -%>
+<% end -%>

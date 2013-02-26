@@ -1,0 +1,3 @@
+<% form_for :clan, :url => {:action => :join, :id => @clan} do |f| -%>
+  <p><%= f.submit "Join #{@clan.name}" %></p>
+<% end -%>

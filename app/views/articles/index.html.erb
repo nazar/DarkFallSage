@@ -1,0 +1,6 @@
+<% for category in @top_level do -%>
+  <% render :partial => 'articles/category_tree', :locals => {:category => category} %>
+<% end -%>
+<% content_tag('Latest Articles', :header => 'h2') do -%>
+  <%= render :partial => 'articles/articles_summary', :locals => {:articles => @latest_articles} %>
+<% end -%>

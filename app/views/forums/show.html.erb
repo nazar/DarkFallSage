@@ -1,0 +1,3 @@
+<% content_block(link_to("Forums Home", forum_home_path), :header => 'h1') do -%>
+  <%= render :partial => 'topics/list_topicable_topics', :locals => {:topics => @topics, :topicable => @forum} %>
+<% end -%>

@@ -1,0 +1,12 @@
+<fieldset>
+  <legend>Mob / NPC Properties</legend>
+  <%= f.label :name, 'Name' %><%= f.text_field :name %><br/>
+  <%= f.label :mob_type %><%= f.select :mob_type, Mob.mob_types_for_select, :id => 'mob_type' %>
+</fieldset>
+<fieldset>
+  <legend>Description</legend>
+  <%= markup_area 'mob', 'description' %>
+</fieldset>
+<div id="mob_properties">
+  <%= render_mob_properties_by_type(@mob.mob_type) %>
+</div>

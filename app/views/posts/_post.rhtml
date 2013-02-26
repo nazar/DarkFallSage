@@ -1,0 +1,75 @@
+<div id="post<%= post.id %>">
+  <table class="post" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="info_column" valign="top">
+        <div align="center"><%= image_tag post.user.avatar.url, :class => 'comUserImg' unless post.user.avatar.blank? %></div>
+        <div class="comUserStat">
+          <span class="comUserStatCaption">By: </span> <%= link_to(h(post.user.login), profile_path(post.user.login)) %>
+        </div>
+        <div class="comUserStat">
+          <span class="comUserStatCaption"><%= post.user.calc_rank %></span>
+        </div>
+        <div class="comUserStat">
+          <span class="comUserStatCaption">Joined: </span><%= post.user.created_at.to_date.to_formatted_s(:long) %>
+        </div>
+        <div class="comUserStat"><span class="comUserStatCaption">Posts: </span> <%= post.user.posts_count %></div>
+        <% unless post.user.admin? -%>
+          <div class="comUserStat"><span class="comUserStatCaption"><%= link_to 'Reputation', reputation_path %>: </span> <%= post.user.counter.reputation %></div>
+        <% end -%>  
+      </td>
+      <td class="body_column" valign="top">
+        <table cellpadding="0" cellspacing="0">
+          <% unless post.title.blank? -%>
+            <tr>
+              <td class="post_title" valign="middle">
+                <h3><%= h post.title %></h3>
+              </td>
+            </tr>
+          <% end -%>  
+          <tr>
+            <td class="post_body">
+              <% if can_post_vote(post) -%>
+                <%= render :partial => 'votes/vote_block',
+                           :locals => {:voteable => post,
+                                       :votes_against => post.votes_against, :votes_for => post.votes_for,
+                                       :voted_against => false, :voted_for => false}  %>
+              <% end -%>
+              <%= format_red_cloth(post.body) %>
+            </td>
+          </tr>
+          <tr>
+            <td class="post_info">
+              <div align="right">
+                <small>
+                  <% if current_user && current_user.admin -%>
+                    IP: <a href="http://www.whois.sc/<%= post.ip %>" target="_blank"><%= post.ip %></a> |
+                  <% end -%>
+                  Posted <%= time_ago_in_words(post.created_at)+' ago' %>
+                </small>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="post_actions">
+              <div align="right">
+                <% if logged_in? %>
+                  <% if can_edit_post(post) || can_admin -%>
+                    <%= link_to(image_tag("/images/forums/p_edit-a.png", :alt=>"Edit", :align=>"middle"), edit_post_path(post)) %>
+                  <% end -%>
+                  <% if current_user.admin? || can_admin %>
+                    <%= link_to( image_tag("/images/forums/p_delete-a.png", :alt=>"Delete", :align=>"middle"), delete_post_path(post), :confirm => 'Are you sure?', :post => true) %>
+                  <% end %>&nbsp;&nbsp;
+                  <% if can_reply -%>
+                    <%= link_to(image_tag('forums/p_reply-a.png', :alt => "Reply", :align => 'middle'), reply_post_path(post), {:class => 'reply_link'}) %>
+                    <%= link_to(image_tag('forums/p_quote-a.png', :alt => "Reply with Quote", :align => 'middle'), quote_post_path(post), {:class => 'reply_link'}) %>
+                  <% end -%>
+                <% end %>
+                <a href="#threadtop" title="">
+                  <img src="/images/forums/p_up-a.png" style="margin-left: 10px;" alt="Back to Top" align="middle"></a>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+  </table>
+</div>

@@ -1,0 +1,23 @@
+<% sortable_table(:id => 'applicants_table') do -%>
+  <tr class="head">
+    <th class="sortfirstasc">Member</th>
+    <th>Rank</th>
+    <th>Joined</th>
+    <% if can_admin -%>
+      <th>Action</th>
+    <% end -%>  
+  </tr>
+  <% for member in members do -%>
+    <tr>
+      <td><%= link_to member.user.name, profile_path(member.user.login) %></td>
+      <td><%= member.rank_to_s %></td>
+      <td><%= time_ago_in_words(member.created_at) %> ago</td>
+      <% if can_admin -%>
+        <td valign="middle">
+          <%= link_to 'change rank', change_rank_member_path(clan, member) %>&nbsp;|&nbsp;
+          <%= link_to 'expel', clan_expel_member_path(clan, member), :confirm => "Expel Member #{member.user.name} from the Clan?" %>
+        </td>
+      <% end -%>  
+    </tr>
+  <% end -%>
+<% end -%>

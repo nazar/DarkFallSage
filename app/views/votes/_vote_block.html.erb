@@ -1,0 +1,4 @@
+<div class="vwidget" id="votes_block_<%= voteable.id %>">
+  <%= link_to_remote votes_for,     {:url => vote_cast_path(voteable.class.to_s, voteable.id, :true), :method => :post}, :class => upvote_class(voted_for) %>
+  <%= link_to_remote votes_against, {:url => vote_cast_path(voteable.class.to_s, voteable.id, :false),:method => :post}, :class => downvote_class(voted_against) %>
+</div>

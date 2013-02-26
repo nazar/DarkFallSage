@@ -1,0 +1,5 @@
+<p>Dear Admin</p>
+<p><%= @obj.class.to_s %> <%= link_to @obj.name, @link %></p> has been edited by <%= link_to @user.login, "http://darkfallsage.com/profile/#{@user.login}" %>.
+<p>Edited fields</p>
+<%= @diff.to_yaml -%>
+<p>Revision <%= link_to @obj.name, @link %> is now at: <%= @obj.revision_number %></p>

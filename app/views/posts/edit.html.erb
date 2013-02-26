@@ -1,0 +1,12 @@
+<div class="crumbs" style="margin-top:1.1em;">
+  <strong>
+    <%= link_to "Forums", forum_home_path %> -> <%= link_to h(@topicable.name), polymorphic_path(@topicable) %>
+  </strong> 
+</div>
+<div class="block_title"><h2 id="new_topic">Editing - <%= h @topic.title %></h2></div>
+<br />
+<% form_tag reply_topic_path(@topic), :id => 'forumform', :name => 'forumform' do -%>
+  <%= render :partial => '/posts/post_form', :locals => {:forum => @topicable, :topic => @topic, :post => @post} %>
+  <%= hidden_field_tag('edit',@post.id) %>
+<% end -%>
+                                                         

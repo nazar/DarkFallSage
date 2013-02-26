@@ -1,0 +1,19 @@
+<fieldset>
+  <legend>Mob Properties</legend>
+  <%= label :mob, :hp, 'HP' %><%= text_field :mob, :hp %><br/>
+  <%= label :mob, :difficulty %><%= select :mob, :difficulty, Mob.mob_difficulties_for_select %><br/>
+  <%= label :mob, :melee_weakness %><span id="melee_weakness"><%= render_mob_melee_weakness(@weak_melee) %></span><br/>
+  <%= label :mob, :spell_weakness %><span id="spell_weakness"><%= render_mob_spell_weakness(@weak_spell) %></span>
+</fieldset>
+<fieldset>
+  <legend>Drops</legend>
+  <%= render :partial => 'mobs/edit_drops', :locals => {:drops => @drops} %>
+</fieldset>
+<fieldset>
+  <legend>Skins</legend>
+  <%= render :partial => 'mobs/edit_skins', :locals => {:skins => @skins} %>
+</fieldset>
+<fieldset>
+  <legend>Casts</legend>
+  <%= render :partial => 'mobs/edit_casts', :locals => {:casts => @casts} %>
+</fieldset>

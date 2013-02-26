@@ -1,0 +1,10 @@
+<tr id="drop_<%=drop.id-%>">
+  <td>
+    <%= select_tag "drop[#{drop.id}][item_id]", options_for_select(Item.all(:order => 'name').collect{|obj| [obj.name.capitalize, obj.id] }, drop.item_id),
+        :id => "drop_drop_id_#{drop.id}" %>
+  </td>
+  <td>
+    <%= text_field_tag "drop[#{drop.id}][quantity]", drop.quantity   %>
+  </td>
+  <td><%= select_tag "drop[#{drop.id}][frequency]", options_for_select(MobItem.frequency_types.sort.collect{|f|[f.last, f.first]}, drop.frequency) %></td>
+</tr>

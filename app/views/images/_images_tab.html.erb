@@ -1,0 +1,3 @@
+<%= will_paginate images, :param_name => 'page_images' unless images.blank? %>
+<%= render :partial => 'images/object_images', :locals => {:images => images, :imageable => objekt } %>
+<%= will_paginate images, :param_name => 'page_images' unless images.blank?  %>

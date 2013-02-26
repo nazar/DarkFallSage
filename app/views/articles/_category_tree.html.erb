@@ -1,0 +1,5 @@
+<div class="left">
+  <h3><%= link_to "#{category.category} (#{category.item_counts})", category_articles_path(category, category.category.to_permalink)  %></h3>
+  <%= indented_categories_list(category) %>
+</div>
+<br class="clear" />

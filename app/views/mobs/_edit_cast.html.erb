@@ -1,0 +1,9 @@
+<tr id="cast_<%=cast.id-%>">
+  <td>
+    <%= select_tag "cast[#{cast.id}][spell_id]", options_for_select(Spell.all(:order => 'name').collect{|obj| [obj.name.capitalize, obj.id] }, cast.spell_id),
+        :id => "cast_cast_id_#{cast.id}" %>
+  </td>
+  <td>
+    <%= text_field_tag "cast[#{cast.id}][quantity]", cast.quantity   %>
+  </td>
+</tr>

@@ -1,0 +1,8 @@
+<div class="site_block">
+  <h1 class="ui-widget-header ui-corner-top"><%= "Items Database - Viewing #{@item_type} Items" %> </h1>
+  <div class="ui-widget ui-widget-content ui-corner-bottom"  id="items_content">
+    <p><%= link_to 'Add Item', new_item_path %> to database</p>
+    <%= render :partial => 'items/items_table', :locals => {:items => @items, :hide => ['item_type']} %>
+  </div>  
+</div>
+

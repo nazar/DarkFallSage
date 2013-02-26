@@ -1,0 +1,15 @@
+<h1>Skills Database</h1>
+<p><%= link_to 'create', new_skill_path %> skill</p>
+<div id="tabs">
+  <ul>
+    <% for skill_type_id in @hash_orders -%>
+      <li><a href="#tab-<%= Skill.skill_types[skill_type_id] %>"><%= Skill.skill_types[skill_type_id].humanize %> (<%= @skills_hash[skill_type_id].blank? ? 0 : @skills_hash[skill_type_id].length %>)</a></li>
+    <% end -%>
+  </ul>
+  <% for skill_type_id in @hash_orders -%>
+    <div id="tab-<%= Skill.skill_types[skill_type_id] %>">
+      <%= render :partial => 'skills/skills_table', :locals => {:skills => @skills_hash[skill_type_id], :table_id => "#{Skill.skill_types[skill_type_id]}_skills"} %>
+    </div>
+  <% end -%>
+</div>
+<%= javascript_tag "(function($){ $('#tabs').tabs(); })(jQuery);" %>

@@ -1,0 +1,40 @@
+<table cellspacing="0" cellpadding="0" border="0" id="signup_table">
+  <tr>
+    <td colspan="2"><%= render_object_errors(@user) -%></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <div class="normal_header">Register for FREE to enjoy full member privileges.</div>
+    </td>
+  </tr>
+  <tr>
+    <td class="row title">Username</td>
+    <td class="row"><%= text_field('user', 'login', :class => "inputtext") -%></td>
+  </tr>
+  <tr>
+    <td class="row title">Password</td>
+    <td class="row"><%= password_field('user', 'password', :class => "inputtext") -%></td>
+  </tr>
+  <tr>
+    <td class="row title">Confirm Password</td>
+    <td class="row"><%= password_field('user', 'password_confirmation', :class => "inputtext") -%></td>
+  </tr>
+  <tr>
+    <td class="row title" valign="top">Email</td>
+    <td class="row">
+      <%= text_field('user', 'email', :class => "inputtext") -%><br>
+      <span class="tiny_text">Valid email required for account creation.</span>
+    </td>
+  </tr>
+  <tr><td colspan="2" align="center" style="padding-top: 10px;"><%= submit_tag 'Create Account', :class => 'input_button', :disable_with => "Creating Account" -%></td></tr>
+  <tr>
+    <td colspan="2" class="row" align="center" style="padding-top: 10px;">
+      Already registered? <%= link_to 'Login', session_login_path -%> into your account.<br />
+      <% link_to 'Forgot your password?', '/sessions/forgot_password' -%><br />
+      <% link_to 'Resend Activation Email', '/sessions/resend_activation' -%>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>

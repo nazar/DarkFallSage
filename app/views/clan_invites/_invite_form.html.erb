@@ -1,0 +1,6 @@
+<% invite = clan.clan_invites.build -%>
+<% form_for :invite, :url => {:controller => 'clan_invites', :action => :invite, :id => clan}, :html => {:style => "padding: 5px 0 10px 0"} do |f| -%>
+  Invite member:
+  <%= text_field_with_auto_complete :invite, 'invitee', {}, {:url => clan_invitation_users_path(clan)} %>
+  <%= submit_tag 'Invite' %>&nbsp;<em class="small">Key in member username</em>
+<% end -%>

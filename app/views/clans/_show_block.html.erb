@@ -1,0 +1,108 @@
+<% tabs ||= 'clan_tabs' -%>
+<% hide ||= [] %>
+<div class="clearfix">
+  <div class="right">
+    <table cellpadding="0" cellspacing="0" class="item_properties">
+      <%= clan_table_row clan, 'server', 'Server', clan.server_to_s %>
+      <%= clan_table_row clan, 'owner', 'Leader', link_to(clan.owner.name, profile_path(clan.owner.login)) unless clan.owner.blank? %>
+      <%= clan_table_row clan, 'access_type', 'Memberhip', clan.access_type_to_s %>
+      <%= clan_table_row clan, 'members_count', 'Members', clan.members_count %>
+    </table>
+  </div>
+  <p><%= image_tag clan.crest.url, :alt => clan.name, :class => 'item_icon' %></p>
+  <p><%= format_red_cloth(clan.description) %></p>
+  <% if can_admin -%>
+    <p class="clear left"><%= link_to 'Admin', edit_clan_path(clan) %> Clan</p>
+  <% end -%>
+</div>
+<div id="<%= tabs %>" style="margin-top: 20px;">
+  <ul>
+    <% unless clan.charter.blank? -%>
+      <li><a href="#tab-charter<%= tabs %>">Charter</a></li>
+    <% end -%>  
+    <% if can_join -%>
+      <li><a href="#tab-join<%= tabs %>">Join Clan</a></li>
+    <% end -%>
+    <% if can_view_applicants -%>
+      <li><a href="#tab-applications<%= tabs %>">Applications (<%= applications.length %>)</a></li>
+    <% end -%>
+    <% if view_invites -%>
+      <li><a href="#tab-invites<%= tabs %>">Invites (<%= invites.length %>)</a></li>
+    <% end -%>  
+    <% unless clan_members.blank?  %>
+      <li><a href="#tab-members<%= tabs %>">Members (<%= clan_members.length %>)</a></li>
+    <% end -%>
+    <li><a href="#tab-alliances<%= tabs %>">Alliances (<%= in_alliances.length.to_i + own_alliances.length.to_i %>)</a></li>
+    <% unless hide.include?(:forums) -%>
+      <li><a href="#tab-forums<%= tabs %>">Forums (<%= clan_forums.length %>)</a></li>
+    <% end -%>
+    <% unless hide.include?(:images) -%>
+      <li><a href="#tab-images<%= tabs %>">Images (<%= clan.images_count %>)</a></li>
+    <% end -%>
+  </ul>
+  <% unless clan.charter.blank? -%>
+    <div id="tab-charter<%= tabs %>">
+      <h3>Club Charter</h3>
+      <p><%= format_red_cloth(clan.charter) %></p>
+    </div>
+  <% end -%>
+  <% if can_join -%>
+    <div id="tab-join<%= tabs %>">
+      <% if current_user.blank? -%>
+        <p>Please <%= link_to 'register', session_signup_path %> or <%= link_to 'login', session_login_path %> to join this clan.</p>
+      <% else -%>
+        <%= render :partial => 'clans/join_clan', :locals => {:clan => clan} %>
+      <% end -%>
+    </div>
+  <% end -%>
+  <% if can_view_applicants -%>
+    <div id="tab-applications<%= tabs %>">
+      <%= render :partial => 'clan_applications/applications_table', :locals => {:applications => applications} %>
+    </div>
+  <% end -%>
+  <% if view_invites -%>
+    <div id="tab-invites<%= tabs %>">
+      <% if can_admin -%>
+        <%= render :partial => 'clan_invites/invite_form', :locals => {:clan => clan} %>
+      <% end -%>
+      <% unless invites.blank? -%>
+        <%= render :partial => 'clan_invites/invites_table', :locals => {:invites => invites, :can_admin => can_admin} %>
+      <% end -%>  
+    </div>
+  <% end -%>  
+  <% unless clan_members.blank?  -%>
+    <div id="tab-members<%= tabs %>">
+      <%= render :partial => 'clan_members/members_table', :locals => {:members => clan_members, :can_admin => can_admin, :clan => clan} %>
+    </div>
+  <% end -%>
+  <div id="tab-alliances<%= tabs %>">
+    <p><%= alliance_link_actions(clan, can_admin) %></p>
+    <% if (in_alliances.length + own_alliances.length + clan_invites.length ) > 0 -%>
+      <%= render :partial => 'alliances/clan_alliances_block', :locals => {:clan => clan, :can_admin => can_admin, :pending => @pending,
+                                                                           :in_alliances => in_alliances, :own_alliances => own_alliances,
+                                                                           :clan_invites => clan_invites} %>
+    <% else -%>
+      <p>This clan is not in any alliances.</p>
+    <% end -%>
+  </div>
+  <% unless hide.include?(:topics) -%>
+    <div id="tab-forums<%= tabs %>">
+      <% if can_admin -%>
+        <p><%= link_to 'Admin', clan_forums_admin_path(clan) %>  Forums</p>
+      <% end -%>
+      <% unless clan_forums.blank? -%>
+        <div id="forums">
+          <%= render :partial => 'clan_forums/forum_list_block', :locals => {:forums => clan_forums} %>
+        </div>
+      <% else -%>
+        <p>No Club Forums or insufficient access permissions to access this club's Forums.</p>
+      <% end -%>
+    </div>
+  <% end -%>
+  <% unless hide.include?(:images) -%>
+    <div id="tab-images<%= tabs %>">
+      <%= render :partial => 'images/images_tab', :locals => {:images => clan_images, :objekt => clan} %>
+    </div>
+  <% end -%>
+</div>
+<%= javascript_tag "(function($){ $('##{tabs}').tabs(); })(jQuery);" %>

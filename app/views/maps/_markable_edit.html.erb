@@ -1,0 +1,36 @@
+<div id="google_map">
+  <table cellpadding="0" cellspacing="0">
+    <tr valign="top">
+      <td width="220">
+        <% form_remote_tag :url => {:controller => 'maps', :action => 'add_marker', :id => markable.id},
+                     :html => {:id => 'items_form'},
+                     :success => "editor_map.requeryMarkerDataAndClear();" do
+        %>
+          <div id="marker_list">
+            <%= render :partial => 'maps/list', :locals => {:markers => markers} %>
+          </div>
+          <p>Tag Title<br/>
+          <%= text_field_tag 'markable[title]', nil, :id => 'title' %></p>
+          Lng:&nbsp;<%= text_field_tag 'markable[xm]', nil, :class => 'coordmm', :id => 'xm', :style=>'width:20px;' %>&nbsp;'&nbsp;<%= text_field_tag 'markable[xs]', nil, :class => 'coords', :id => 'xs' %>&nbsp;"&nbsp;<%= text_field_tag 'markable[xd]', nil, :class => 'coordd', :id => 'xd' %><br />
+          Lat:&nbsp;&nbsp;<%= text_field_tag 'markable[ym]', nil, :class => 'coordmm', :id => 'ym', :style=>'width:20px;' %>&nbsp;'&nbsp;<%= text_field_tag 'markable[ys]', nil, :class => 'coords', :id => 'ys' %>&nbsp;"&nbsp;<%= text_field_tag 'markable[yd]', nil, :class => 'coordd', :id => 'yd' %><br />
+          <%= hidden_field_tag 'markable[lat]', nil, :id => 'lat' %>
+          <%= hidden_field_tag 'markable[lng]', nil, :id => 'lng' %>
+          <%= hidden_field_tag 'markable_id', markable.id %>
+          <%= hidden_field_tag 'markable_type', markable.class.to_s %>
+          <p>
+          <%= submit_tag 'Add Tag' %>
+          </p>
+        <% end -%>
+      </td>
+      <td>
+        <div id="map_edit_container"></div>
+        <div class="small">Click on above map to set Longitute and Latitude coordinates. IE8 is not compatible for the moment. Please use IE8 in Compatability Mode. Better still, use Firefox or Chrome!</div>
+      </td>
+    </tr>
+  </table>
+  <% javascript_tag do -%>
+    editor_map = new GoogleSmallMapEditor('map_edit_container');
+    editor_map.queryMarkerData('<%=data_url%>');
+  <% end -%>
+  <noscript><h3>This page requires a browser with JavaScript support.</h3></noscript>
+</div>

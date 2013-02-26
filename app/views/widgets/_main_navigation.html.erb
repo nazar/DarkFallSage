@@ -1,0 +1,35 @@
+<% render_navigation :main, :generate_css => false do
+
+    add_item do |i|
+      i.named "welcome #{current_user.pretty_name}"
+      i.disable!
+    end if logged_in?
+    
+    add_item do |i|
+      # i.html = {:id => 'logout_link'}
+      i.named 'my profile'
+      i.links_to :controller => 'profiles'
+    end if logged_in?
+
+    add_item do |i|
+      # i.html = {:id => 'logout_link'}
+      i.named 'admin'
+      i.links_to :controller => 'admin'
+    end if admin?
+
+    add_item do |i|
+      i.named 'logout' 
+      i.links_to :controller => 'sessions', :action => 'logout'
+    end if logged_in?
+
+    add_item do |i|
+      i.named 'login'
+      i.links_to :controller => 'sessions', :action => 'login'
+    end if not logged_in?
+
+    add_item do |i|
+      i.named 'signup'
+      i.links_to :controller => 'sessions', :action => 'signup'
+    end if not logged_in?
+
+end %>

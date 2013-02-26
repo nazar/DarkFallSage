@@ -1,0 +1,7 @@
+<% content_block("Editing Clan #{@clan.name}", :header => 'h2') do -%>
+  <%= error_messages_for 'clan' %>
+  <% form_for @clan, :html => {:multipart => true, :class => 'form_layout' } do |f|  -%>
+    <%= render :partial => 'clans/form', :locals => {:f => f} %>
+    <%= f.submit 'Update Clan' %>
+  <% end -%>
+<% end -%>

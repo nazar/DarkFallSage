@@ -1,0 +1,77 @@
+<% content_block(h(@item.name) +' - '+ item_type_and_sub_crumb(@item), {:header => 'h1', :id => 'items_content'}) do -%>
+  <div class="clearfix">
+    <div class="right"><%= render :partial => 'items/item_properties_table' %></div>
+    <p><%= image_tag @item.image.url, :alt => @item.name, :class => 'item_icon' %></p>
+    <p><%= format_red_cloth(@item.description) %></p>
+  </div>  
+  <% if Moderator.db_moderator?(current_user) -%>
+    <p><%= link_to 'edit', edit_item_path(@item) %></p>
+  <% end -%>
+  <div id="tabs" style="margin-top: 20px;">
+    <ul>
+      <% unless @item.prereqs.blank? -%>
+        <li><a href="#tab-recipe">Recipe</a></li>
+      <% end -%>
+      <% unless @by_spells.blank? %>
+        <li><a href="#tab-spells">As Reagent (<%= @by_spells.length %>)</a></li>
+      <% end -%>
+      <% unless @req_by_spell.blank? && @req_by_skill.blank? && @req_by_item.blank? -%>
+        <li><a href="#tab-required">Required By</a></li>
+      <% end -%>
+      <% unless @dropped_by.blank? -%>
+        <li><a href="#tab-mobs">Mobs (<%= @dropped_by.length %>)</a></li>
+      <% end -%>
+      <% unless @sold_by.blank? -%>
+        <li><a href="#tab-sellers">Sellers (<%= @sold_by.length %>)</a></li>
+      <% end -%>
+      <li><a href="#tab-threads">Threads (<%= @item.topics_count.to_i %>)</a></li>
+      <li><a href="#tab-images">Images (<%= @item.images_count %>)</a></li>
+      <li><a href="#tab-map">Item Locations (<%= @item.markers_count %>)</a></li>
+    </ul>
+    <% unless @item.prereqs.blank? -%>
+      <div id="tab-recipe">
+        <%= render :partial => 'prereqs/render_prereqs', :locals => {:objekt => @item} %>
+      </div>
+    <% end -%>
+    <% unless @by_spells.blank? %>
+      <div id="tab-spells">
+        <%= render :partial => 'items/spells_tab' %>
+      </div>
+    <% end -%>
+    <% unless @req_by_spell.blank? && @req_by_skill.blank? && @req_by_item.blank? -%>
+      <div id="tab-required">
+        <%= render :partial => 'items/prereq_items_table', :locals => {:items => @req_by_item, :spells => @req_by_spell, :skills => @req_by_skill } %>
+      </div>
+    <% end -%>
+    <% unless @dropped_by.blank? -%>
+      <div id="tab-mobs">
+        <%= render :partial => 'mobs/mobs_table', :locals => {:mobs => @dropped_by} %>
+      </div>
+    <% end -%>
+    <% unless @sold_by.blank? -%>
+      <div id="tab-sellers">
+        <%= render :partial => 'mobs/npc_table', :locals => {:mobs => @sold_by} %>
+      </div>
+    <% end -%>
+    <div id="tab-threads">
+      <div id="forums">
+      <%= render :partial => 'topics/list_topicable_topics', :locals => {:topics => @topics, :topicable => @item} %>
+      </div>
+    </div>
+    <div id="tab-images">
+      <%= render :partial => 'images/images_tab', :locals => {:images => @images, :objekt => @item} %>
+    </div>
+    <div id='tab-map'>
+      <p><%= link_to_remote('Add/Edit ', :url => add_map_path(@item.class.to_s, @item.id), :id => 'add_map') %> my Item locations to the Darkfall Map.</p>
+      <% if @item.markers_count > 0 -%>
+        <%= render :partial => 'maps/map_viewer', :locals => {:data_url => item_markers_path(@item.id)} %>
+      <% else -%>
+        <div id="google_map">&nbsp;</div>
+      <% end -%>
+    </div>
+  </div>
+<% end -%>
+<%= javascript_tag("jQuery('a.info_popup').attach(Popup);") %>
+<%= javascript_tag("jQuery('#tab-spells .pagination a').attach(RemoteUpdateBlindShow, {update: '#tab-spells'});") %>
+<%= javascript_tag("jQuery('#tab-images .pagination a').attach(RemoteUpdateBlindShow, {update: '#tab-images'});") %>
+<%= javascript_tag "(function($){ $('#tabs').tabs(); })(jQuery);" %>

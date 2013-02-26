@@ -1,0 +1,28 @@
+<% unless spells.blank? -%>
+  <table id="<%= table_id ||= 'spells_sell_list' %>" cellpadding="0" cellspacing="0" class="sortable">
+    <tr class="head">
+      <th class="nosort">&nbsp;</th>
+      <th>Spell</th>
+      <th>School</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th class="sortfirstasc number">Level</th>
+      <th>Type</th>
+      <th>Affects</th>
+    </tr>
+    <% for item in spells -%>
+      <tr>
+        <td class="icon"><%= link_to image_tag(item.icon.url, :alt => item.name), spell_path(item), :class => 'info_popup' %></td>
+        <td class="title"><%= link_to item.name, spell_path(item) %></td>
+        <td ><%= link_to item.school.name, spell_by_school_path(item.school_id) %></td>
+        <td class="info number"><%= item.quantity %></td>
+        <td class="description"><%= truncate(item.description, (trunc ||= 80)) %></td>
+        <td class="info number"><%= item.level %></td>
+        <td class="info"><%= link_to item.spell_type_to_s, spell_by_type_path(item.spell_type)  %></td>
+        <td class="info"><%= item.spell_target_to_s %></td>
+      </tr>
+    <% end -%>
+  </table>
+  <%= javascript_tag("jQuery('a.info_popup').attach(Popup);") %>
+  <%= javascript_tag("SortableTable.init('#{table_id}');") %>
+<% end -%>

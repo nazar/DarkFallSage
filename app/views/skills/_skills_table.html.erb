@@ -1,0 +1,28 @@
+<% hide ||= [] -%>
+<% unless skills.blank? -%>
+  <table id="<%= table_id ||= 'skills_list' %>" cellpadding="0" cellspacing="0" class="sortable">
+    <tr class="head">
+      <th class="nosort">&nbsp;</th>
+      <th class="sortfirstasc">Skill</th>
+      <th>Description</th>
+      <% unless hide.include?('forums') -%>
+        <th>Gold</th>
+        <th>Topics</th>
+        <th>Posts</th>
+      <% end -%>  
+    </tr>
+    <% for item in skills -%>
+      <tr>
+        <td class="icon"><%= link_to image_tag(item.icon_path, :alt => item.name), skill_path(item) %></td>
+        <td class="title"><%= link_to item.name, skill_path(item) %></td>
+        <td class="description"><%= strip_tags(truncate(item.description, 80)) %></td>
+        <% unless hide.include?('forums') -%>
+          <td class="info number"><%= item.gold.to_i %></td>
+          <td class="info number"><%= item.topics_count %></td>
+          <td class="info number"><%= item.posts_count %></td>
+        <% end -%>  
+      </tr>
+    <% end -%>
+  </table>
+  <%= javascript_tag("SortableTable.init('#{table_id}');") %>
+<% end -%>

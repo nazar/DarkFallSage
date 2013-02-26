@@ -1,0 +1,2 @@
+module ClanInvitesHelper
+end

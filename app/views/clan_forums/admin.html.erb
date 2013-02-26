@@ -1,0 +1,8 @@
+<% content_block("#{link_to(@clan.name, clan_path(@clan))} - Forum Administration") do -%>
+  <p><%= link_to 'Create', clan_forums_new_path(@clan) %>  a Forum</p>
+  <% unless @forums.blank? -%>
+    <%= render :partial => 'clan_forums/admin_forums_block', :locals => {:forums => @forums} %>
+  <% else -%>
+    <p>No forums defined for this club. <%= link_to 'Create', clan_forums_new_path(@clan) %> a new Club Forum.</p>
+  <% end -%>
+<% end -%>

@@ -1,0 +1,7 @@
+<% content_block("#{h(@clan.name)} - Clan Page", :header => 'h1') do -%>
+  <%= render :partial => 'clans/show_block', :locals => {:clan => @clan, :clan_forums => @clan_forums, :in_alliances => @in_alliances, :own_alliances => @own_alliances,
+                                                         :clan_members => @clan_members, :clan_images => @clan_images,
+                                                         :applications => @applications, :can_view_applicants => (@applications.length > 0) && @clan.can_admin?(current_user),
+                                                         :can_admin => @clan.can_admin?(current_user), :can_join => @can_join,
+                                                         :invites => @invites, :clan_invites => @clan_invites, :view_invites => @view_invites }%>
+<% end -%>

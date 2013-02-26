@@ -1,0 +1,11 @@
+<h1><%= h @ability.name %></h1>
+<div id="ability_desription">
+  <%= @ability.description %>
+</div>
+<% if @ability.required_count > 0 -%>
+  <%= render :partial => 'prereqs/needed_by_list_for_object', :locals => {:objekt => @ability} %>
+<% end -%>
+<h2><%= @ability.name %> Discussions</h2>
+<div id="forums">
+<%= render :partial => 'topics/list_topicable_topics', :locals => {:topics => @topics, :topicable => @ability} %>
+</div>

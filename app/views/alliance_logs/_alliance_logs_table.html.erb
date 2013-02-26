@@ -1,0 +1,12 @@
+<% sortable_table(:id => 'alliance_logs') do -%>
+  <tr class="head">
+    <th class="sortfirstasc date-iso">Date Stamp</th>
+    <th>Log</th>
+  </tr>
+  <% for log in alliance_logs -%>
+    <tr>
+      <td><%= log.created_at %></td>
+      <td><%= log.log %></td>
+    </tr>
+  <% end -%>  
+<% end -%>

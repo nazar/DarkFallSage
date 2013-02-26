@@ -1,0 +1,14 @@
+<table id="edit_reagents" cellpadding="0" cellspacing="0">
+  <tr>
+    <th>Name</th>
+    <th>Qty</th>
+  </tr>
+  <% for spell_reagent in spell_reagents -%>
+    <%= render :partial => 'spell_reagents/spell_reagent_row', :locals => {:spell_reagent => spell_reagent} %>
+  <% end -%>
+  <tr id="last_reagent_row">&nbsp;</tr>
+</table>
+<p>
+  <%= link_to 'Add Reagent', reagent_line_path, :id => 'add_spell_reagent' %>
+</p>
+<%= javascript_tag("jQuery('a#add_spell_reagent').attach(RemoteGetAndInsertBefore, {before: '#last_reagent_row'});") %>

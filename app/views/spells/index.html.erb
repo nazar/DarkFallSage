@@ -1,0 +1,25 @@
+<% content_block('Spells Database', {:header => 'h1'}) do -%>
+  <p><%= link_to 'create', new_spell_path %> spell</p>
+  <p>Spells in Darkfall are broken down into Skill Schools:</p>
+  <table cellpadding="0" cellspacing="0" id="spell_schools">
+    <tr>
+      <td><%= spell_school_link('Lesser Magic') %></td>
+      <td><%= spell_school_link('Greater Magic') %></td>
+      <td><%= spell_school_link('Spell Chanting') %></td>
+      <td><%= spell_school_link('Witchcraft') %></td>
+      <td><%= spell_school_link('Water Magic') %></td>
+    </tr>
+    <tr>
+      <td><%= spell_school_link('Fire Magic') %></td>
+      <td><%= spell_school_link('Earth Magic') %></td>
+      <td><%= spell_school_link('Air Magic') %></td>
+      <td><%= spell_school_link('Arcane Magic') %></td>
+      <td><%= spell_school_link('Necromancy') %></td>
+    </tr>
+  </table>
+  <% for school in @schools -%>
+    <h3 id="<%= school.name.downcase.gsub(' ','_') %>"><%= school_image(school.name) %>&nbsp;&nbsp;<%= school.name %></h3>
+    <p><%= school.description %></p>
+    <%= render :partial => 'spells/spells_table', :locals => {:spells => school.spells, :table_id => "#{school.name}_spells"} %>
+  <% end -%>
+<% end -%>

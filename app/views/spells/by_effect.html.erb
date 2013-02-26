@@ -1,0 +1,3 @@
+<% content_block("Spells by Effect - #{@spell_effect}", :header => 'h1') do -%>
+  <%= render :partial => 'spells/spells_table', :locals => {:spells => @spells, :hide => [:type]} %>
+<% end -%>

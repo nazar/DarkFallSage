@@ -1,0 +1,4 @@
+<%= render :partial => 'mobs/show_block',
+           :locals => {:mob => @mob, :last_approved => @last_approved, :title => @mob.name.humanize,
+                       :drops => @drops, :skins => @skins, :casts => @casts, :item_sells => @item_sells, :spell_sells => @spell_sells,
+                       :topics => @topics, :images => @images} %>

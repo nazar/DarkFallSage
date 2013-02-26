@@ -1,0 +1,14 @@
+<% content_block("Editing #{h(@item.name)}", :header => 'h1') do -%>
+  <% form_for @item, :html => { :multipart => true, :class => 'form_layout' } do |f|  %>
+    <%= render :partial => 'form', :locals => {:f => f} %>
+    <%= submit_tag('Update') %>
+  <% end -%>
+  <br clear="all"/>
+  <div id="map_edit_block">
+    <fieldset>
+      <legend>Item Locations</legend>
+      <%= render :partial => 'maps/markable_edit', :locals => {:markable => @item, :data_url => item_markers_path(@item.id), :markers => @markers} %>
+    </fieldset>
+  </div>
+<% end -%>  
+<%= javascript_tag("jQuery('#item_item_type').attach(RemoteGetItemPropertiesForm, {form: '#edit_item_#{@item.id}', update: '#item_properties'});") %>

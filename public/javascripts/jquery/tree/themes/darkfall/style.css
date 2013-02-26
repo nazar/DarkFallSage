@@ -1,0 +1,11 @@
+.tree-darkfall .ltr li.open, .tree-darkfall .rtl li.open { background-image:url("minus.gif"); background-position:2px 5px; background-repeat: no-repeat; }
+.tree-darkfall .ltr li.closed, .tree-darkfall .rtl li.closed, #jstree-dragged.tree-darkfall li li.open { background-image:url("plus.gif"); background-position:2px 5px; background-repeat: no-repeat; }
+.tree-darkfall li a, .tree-darkfall li span { border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px; padding: 1px 4px 1px 10px }
+.tree-darkfall li.open a { background-image: none }
+.tree-darkfall li.closed a { background-image:none;}
+.tree-darkfall li.leaf a { background-image:none }
+.tree-darkfall li a:hover { border: 0; background-color: black; padding: 1px 4px 1px 10px }
+.tree-darkfall li a.clicked, .tree-darkfall li span.clicked, .tree-darkfall li a.clicked:hover, .tree-darkfall li span.clicked:hover { background-color:navy; border-color:navy;  }
+.tree-darkfall .rtl li.open { background-position:right 5px; margin-right:-3px; padding-right:10px; }
+.tree-darkfall .rtl li.closed { background-position:right 5px; margin-right:-3px; padding-right:10px; }
+#jstree-dragged.tree-darkfall .rtl li li.open { background-position: right 5px; }

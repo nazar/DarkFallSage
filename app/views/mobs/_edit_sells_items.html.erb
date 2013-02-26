@@ -1,0 +1,13 @@
+<table id="edit_item_sells" class="deps_table" cellpadding="0" cellspacing="0">
+  <tr>
+    <th>Item</th>
+    <th>Price</th>
+  </tr>
+  <% for item in items -%>
+    <%= render :partial => 'mobs/edit_sells_item', :locals => {:item => item} %>
+  <% end -%>
+  <tr id="item_sells_last_row">&nbsp;</tr>
+</table>
+<p>
+  <%= link_to 'Add Merchant Inventory Item', sells_items_mobs_path, :id => 'add_sell_item' %>
+</p>

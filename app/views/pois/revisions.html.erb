@@ -1,0 +1,27 @@
+<% content_block(@show_title, :header => 'h2') do -%>
+  <p>Previous Revisions: <%= @revisions.collect{|rev| link_to(rev.first, poi_revisions_path(rev.last, rev.first))}.join('&nbsp;&nbsp;') %></p>
+  <%= render :partial => 'pois/show_block',
+             :locals => {:title => h(@poi.name.humanize), :poi => @poi, :last_approved => @last_approved,
+                         :topics => @topics, :images => @images} %>
+  <% if @poi.approved_by.blank? -%>
+    <div class="padded-top">
+      <% form_tag poi_approve_path(@poi) do -%>
+        <%= submit_tag "Approve Revision #{@poi.revisable_number}", :name => 'approve' %>
+        <%= submit_tag "Reject Revision #{@poi.revisable_number}", :name => 'reject' %>
+      <% end -%>
+    </div>
+  <% end -%>
+  <div class="padded-top">
+    <% form_tag poi_revert_path(@poi) do -%>
+      <%= submit_tag "Revert To" %>
+      <%= select_tag 'revert', options_for_select(@revisions.collect{|rev| [rev.first, rev.first]} ) %>
+    <% end -%>
+  </div>
+  <p>Previous Revisions: <%= @revisions.collect{|rev| link_to(rev.first, poi_revisions_path(rev.last, rev.first))}.join('&nbsp;&nbsp;') %></p>
+<% end -%>
+
+<% content_block('Versioned View', :header => 'h2', :id => 'mob_revision_block') do -%>
+  <%= render :partial => 'pois/show_block',
+             :locals => {:title => @rev_title, :poi => @rev_poi, :last_approved => @last_approved,
+                         :topics => nil, :images => nil, :tabs => 'rev_tabs', :hide => [:topics, :images, :maps, :edit, :tabs]} %>
+<% end -%>

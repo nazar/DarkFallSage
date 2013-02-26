@@ -1,0 +1,6 @@
+<div id="google_map">&nbsp;</div>
+<% javascript_tag do %>
+  mapObj = new GoogleLargeMap('google_map');
+  mapObj.queryMarkerData('<%=data_url%>');
+<% end %>
+<noscript><h3>This page requires a browser with JavaScript support.</h3></noscript>

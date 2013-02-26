@@ -1,0 +1,51 @@
+<% hide ||= []; show ||= [] -%>
+<% unless items.blank? -%>
+  <table id="<%= table_id ||= 'items_list' %>" cellpadding="0" cellspacing="0" class="sortable">
+    <tr class="head">
+      <th class="nosort">&nbsp;</th>
+      <th class="sortfirstasc">Item</th>
+      <th>Description</th>
+      <% unless hide.include?('item_type') -%>
+       <th>Type</th>
+      <% end -%>
+      <% if show.include?('rank') -%>
+        <th>Rank</th>
+      <% end -%>
+      <% unless hide.include?('item_sub_type') -%>
+        <th>Sub</th>
+      <% end -%>
+      <% if hide.include?('show_quality') %>
+        <th>Qlty</th>
+      <% end  %>
+      <% unless hide.include?('forums') -%>
+        <th>Topics</th>
+        <th>Posts</th>
+      <% end -%>  
+    </tr>
+    <% for item in items -%>
+      <tr>
+        <td class="icon"><%= link_to image_tag(item.icon_path, :alt => item.name), item_path(item), :class => 'info_popup' %></td>
+        <td class="title"><%= link_to item.name, item_path(item) %></td>
+        <td class="description"><%= strip_tags(truncate(item.description, (trunc ||= 80))) %></td>
+        <% unless hide.include?('item_type') -%>
+          <td><%= link_to item.item_type_to_s, items_by_type_path(item.item_type) %></td>
+        <% end -%>  
+        <% if show.include?('rank') -%>
+          <td><%= item.weapon_rank %></td>
+        <% end -%>
+        <% unless hide.include?('item_sub_type') -%>
+          <td><%= link_to item.item_subtype_to_s, items_type_sub_path(item.item_type, item.item_sub_type) %></td>
+        <% end -%>  
+        <% if hide.include?('show_quality') %>
+          <td><%= item.quality.to_i unless item.quality.blank?%></td>
+        <% end  %>
+        <% unless hide.include?('forums') -%>
+          <td class="info number"><%= item.topics_count %></td>
+          <td class="info number"><%= item.posts_count %></td>
+        <% end -%>  
+      </tr>
+    <% end -%>
+  </table>
+  <%= javascript_tag("SortableTable.init('#{table_id}');") %>
+  <%= javascript_tag("jQuery('a.info_popup').attach(Popup);") %>
+<% end -%>

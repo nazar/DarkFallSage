@@ -1,0 +1,2 @@
+akismetBlog: ""   # Home URL of the instance making the request
+akismetKey: ""    # Your API key from WordPress

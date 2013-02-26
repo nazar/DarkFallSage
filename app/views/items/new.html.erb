@@ -1,0 +1,7 @@
+<h1>Add Item to Database</h1>
+<%= error_messages_for 'item' -%>
+<% form_for @item, :html => { :multipart => true, :class => 'form_layout' } do |f|  %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_tag('Create') %>
+<% end -%>
+<%= javascript_tag("jQuery('#item_item_type').attach(RemoteGetItemPropertiesForm, {form: '#new_item', update: '#item_properties'});") %>

@@ -1,0 +1,7 @@
+<% content_block("Editing Clan Forum #{@forum.name}") do %>
+  <%= error_messages_for :forum %>
+  <% form_for :forum, :url => {:action => 'update', :forum_id => @forum.id}, :html => {:class => 'form_layout'} do |f| -%>
+    <%= render :partial => 'clan_forums/form', :locals => {:f => f} %>
+    <%= f.submit 'Update Forum' %>
+  <% end -%>
+<% end -%>

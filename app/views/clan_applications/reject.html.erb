@@ -1,0 +1,10 @@
+<% content_block('Clan Application Rejection Details', :header => 'h2') do -%>
+  <%= error_messages_for :application %>
+  <% form_for :application, :url => {:action => :reject}, :html => {:class => 'form_layout' } do |f| -%>
+    <fieldset>
+      <legend>Application Rejection Reason</legend>
+      <%= markup_area 'application', 'actioned_reason' %>
+    </fieldset>
+    <%= f.submit 'Reject Application' %>
+  <% end -%>  
+  <% end -%>

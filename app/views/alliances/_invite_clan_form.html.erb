@@ -1,0 +1,6 @@
+<% form_for :alliance, :url => {:controller => 'alliances', :action => :invite} do |f| -%>
+  Invite this clan to <%= label_tag 'alliance' %>
+  <%= select_tag :alliance, options_for_select(my_clan.owned_alliances.collect{|a| [a.name, a.id]}) %>
+  <%= hidden_field_tag 'invite_clan', invite_clan.id %>
+  <%= submit_tag 'Invite' %>
+<% end -%>

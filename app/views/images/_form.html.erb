@@ -1,0 +1,9 @@
+<fieldset>
+  <legend>Image Properties</legend>
+  <%= f.label :title, 'Image Title' %><%= f.text_field :title %><br/>
+  <%= f.label :picture, 'Image File' %><%= f.file_field :picture  %><br/>
+</fieldset>
+<fieldset>
+  <legend>Image Description</legend>
+  <%= markup_area 'image', 'description' %>
+</fieldset>

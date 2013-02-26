@@ -1,0 +1,10 @@
+<% content_block('Darkfall World Map', {:header => 'h1'}) do -%>
+  <div id="large_google_map">
+    &nbsp;
+  </div>
+  <% javascript_tag do %>
+    mapObj = new GoogleMapViewer('large_google_map');
+    mapObj.queryMarkerData('/maps/latest');
+  <% end %>
+  <noscript><h3>This page requires a browser with JavaScript support.</h3></noscript>
+<% end -%>

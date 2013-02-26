@@ -1,0 +1,4 @@
+<h2><%= item.title %> - in category - <%= item.categories.collect{|cat| cat.category}.join(', ') %>  - posted by <%= item.user.login %> - Posted <%= time_ago_in_words(item.created_at) %> ago</h2>
+<div class="news_item">
+  <%= item.body %>
+</div>

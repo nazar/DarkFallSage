@@ -1,0 +1,26 @@
+<% id ||= 'alliances_table' -%>
+<% show ||= [] -%>
+<% sortable_table(:id => id) do -%>
+  <tr class="head">
+    <th class="sortfirstasc">Alliance</th>
+    <% if show.include?(:owner) -%>
+      <th>Owner</th>
+    <% end -%>  
+    <th>Clans</th>
+    <th>Started</th>
+    <th>Action</th>
+  </tr>
+  <% for alliance in alliances -%>
+    <tr>
+      <td><%= link_to h(alliance.name), alliance_path(alliance) %></td>
+      <% if show.include?(:owner) -%>
+        <td><%= link_to h(alliance.lead_clan.name), clan_path(alliance.lead_clan) %></td>
+      <% end -%>
+      <td><%= alliance.clans_count %></td>
+      <td><%= time_ago_in_words alliance.created_at %> ago</td>
+      <td>
+        <%= alliance_clan_user_actions(alliance, clan, current_user) %>
+      </td>
+    </tr>
+  <% end -%>  
+<% end -%>

@@ -1,0 +1,9 @@
+<% content_block("Creating a new Alliance and Inviting clan #{link_to @invite.name, clan_path(@invite)}") do -%>
+  <%= error_messages_for :alliance %>
+  <% form_for :alliance, :url => {:action => :new_and_invite}, :html =>{:class => 'form_layout'} do |f| -%>
+    <%= render :partial => 'alliances/form', :locals => {:f => f} %>
+    <%= hidden_field_tag :my_clan, @clan.id  %>
+    <%= hidden_field_tag :invite_clan, @invite.id  %>
+    <%= f.submit 'Create Alliance' %>
+  <% end -%>
+<% end -%>

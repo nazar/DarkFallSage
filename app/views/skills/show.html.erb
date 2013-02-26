@@ -1,0 +1,66 @@
+<% content_block("#{h(@skill.name)} - #{skill_link_and_type_link(@skill)}", :header => 'h1') do -%>
+  <p><%= image_tag @skill.icon.url, :alt => @skill.name, :class => 'item_icon' %></p>
+  <div class="clearfix">
+    <div class="right">
+      <table cellpadding="0" cellspacing="0" class="item_properties">
+        <%= item_table_row(@skill, 'gold', 'Gold') if @skill.gold.to_f > 0.0 %>
+        <%= item_table_row @skill, 'limited_to_race_to_s', 'Limited To Race' %>
+        <%= item_table_row @skill, 'skill_type_to_s', 'Skill Type' %>
+        <% if @skill.has_subtype? -%>
+          <%= item_table_row @skill, 'skill_subtype_to_s', 'Skill Sub Type' %>
+        <% end -%>
+      </table>
+    </div>
+    <%= format_red_cloth(@skill.description) %>
+    <%= link_to 'edit', edit_skill_path(@skill) %>
+  </div>  
+  <div id="tabs" style="margin-top: 20px;">
+    <ul>
+      <% unless @skill.prereqs.blank? -%>
+        <li><a href="#tab-prereqs">Prerequisites (<%= @skill.prereqs.length %>)</a></li>
+      <% end -%>
+      <% unless @required_by.blank? -%>
+        <li><a href="#tab-required">Required By (<%= @required_by.length %>)</a></li>
+      <% end -%>
+      <% unless @spells.blank? -%>
+        <li><a href="#tab-spells">Magic Schools Spells (<%= @spells.length %>)</a></li>
+      <% end -%>
+      <li><a href="#tab-topics">Threads (<%= @skill.topics_count.to_i %>)</a></li>
+      <li><a href="#tab-images">Images (<%= @skill.images_count %>)</a></li>
+    </ul>
+    <% unless @skill.prereqs.blank? -%>
+      <div id="tab-prereqs">
+        <%= render :partial => 'prereqs/render_prereqs', :locals => {:objekt => @skill} %>
+      </div>
+    <% end -%>
+    <% unless @required_by.blank? -%>
+      <div id="tab-required">
+        <%= render :partial => 'items/items_table', :locals => {:items => @required_by, :hide => ['forums']} %>
+      </div>
+    <% end -%>
+    <% unless @spells.blank? -%>
+      <div id="tab-spells">
+        <% for spell in @spells -%>
+          <table cellpadding="0" cellspacing="0" class="prereq_table">
+            <tr class="<%= cycle('odd', 'even') %>">
+              <td class="icon"><%= link_to image_tag(spell.icon.url, :alt => spell.name), spell_path(spell), :class => 'info_popup' %></td>
+              <td><%= link_to spell.name, spell_path(spell) %></td>
+              <td class="qty"><%= spell.level %></td>
+            </tr>
+          </table>
+        <% end -%>
+      </div>
+    <% end -%>
+    <div id="tab-topics">
+      <div id="forums">
+        <%= render :partial => 'topics/list_topicable_topics', :locals => {:topics => @topics, :topicable => @skill} %>
+      </div>
+    </div>
+    <div id="tab-images">
+      <%= render :partial => 'images/images_tab', :locals => {:images => @images, :objekt => @skill } %>
+    </div>
+  </div>
+<% end -%>  
+<%= javascript_tag("jQuery('a.info_popup').attach(Popup);") %>
+<%= javascript_tag("jQuery('#tab-images .pagination a').attach(RemoteUpdateBlindShow, {update: '#tab-images'});") %>
+<%= javascript_tag "(function($){ $('#tabs').tabs(); })(jQuery);" %>

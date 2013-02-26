@@ -1,0 +1,32 @@
+<% content_block("#{h @alliance.name} - Alliance Details - Started by Clan #{link_to(h(@alliance.lead_clan.name), clan_path(@alliance.lead_clan))}", :header => 'h1') do -%>
+  <div id="alliance-block" style="margin-top: 20px;">
+    <ul>
+      <% unless @alliance.treaty.blank? -%>
+        <li><a href="#tab-treaty">Alliance Treaty</a></li>
+      <% end -%>
+      <% unless @alliance_clans.blank? -%>
+        <li><a href="#tab-clans">Clans (<%= @alliance_clans.length %>)</a></li>
+      <% end -%>
+      <% unless @logs.blank? -%>
+        <li><a href="#tab-logs">History</a></li>
+      <% end -%>
+    </ul>
+    <% unless @alliance.treaty.blank? -%>
+      <div id="tab-treaty">
+        <%= format_red_cloth(@alliance.treaty) %>
+      </div>
+    <% end -%>
+    <% unless @alliance_clans.blank? -%>
+      <div id="tab-clans">
+        <%= render :partial => 'alliance_clans/alliance_clans_table', :locals => {:alliance_clans => @alliance_clans,
+                                                                                  :can_admin => @can_admin, :hide => [:alliance]} %>
+      </div>
+    <% end -%>
+    <% unless @logs.blank? -%>
+      <div id="tab-logs">
+        <%= render :partial => 'alliance_logs/alliance_logs_table', :locals => {:alliance_logs => @logs} %>
+      </div>
+    <% end -%>
+    </div>
+    <%= javascript_tag "(function($){ $('#alliance-block').tabs(); })(jQuery);" %>
+<% end -%>

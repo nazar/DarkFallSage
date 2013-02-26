@@ -1,0 +1,10 @@
+<% content_block 'Change Clan Member Rank' do -%>
+  <% form_for :member, :url => {:action => 'rank', :member_id => @member.id, :clan_id => @clan.id}, :html => {:class => 'form_layout'} do |f| -%>
+    <fieldset>
+      <%= f.label :member, 'Member' %><strong><%= @member.user.name %><br/></strong>
+      <%= f.label :current_rank, 'Current Rank' %><strong><%= @member.rank_to_s %><br/></strong>
+      <%= f.label :rank, 'New Rank' %><%= f.select :rank, forum_rank_select_options %>
+    </fieldset>
+    <%= f.submit 'Update' %>
+  <% end -%>
+<% end -%>

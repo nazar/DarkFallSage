@@ -1,0 +1,7 @@
+<h1>Creating a New Skill</h1>
+<%= error_messages_for 'skill' -%>
+<% form_for @skill, :html => { :multipart => true, :class => 'form_layout' } do |f|  %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_tag('Create') %>
+<% end -%>
+<%= javascript_tag("jQuery('#skill_skill_type').attach(RemoteGetSkillPropertiesForm, {form: '#new_skill', update: '#sub_skill_type_block'});") %>

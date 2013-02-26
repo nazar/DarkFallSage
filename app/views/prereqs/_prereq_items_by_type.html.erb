@@ -1,0 +1,2 @@
+<%= select_tag "prereq[#{h prereq.id}][prereq_id]", options_for_select(Prereq.preq_items_by_type(prereq.need_type), prereq.need_id),
+        :id => "prereq_prereq_id_#{h prereq.id}" %>

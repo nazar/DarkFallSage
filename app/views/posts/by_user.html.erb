@@ -1,0 +1,9 @@
+<% content_block(link_to(h(@user.name), profile_path(@user.login)) +' - All Posts') do -%>
+  <%= will_paginate @posts %>
+  <% unless @posts.blank? -%>
+    <%= render :partial => 'posts/posts_mini', :locals => {:posts => @posts} %>
+  <% else -%>
+    No posts yet...
+  <% end -%>  
+  <%= will_paginate @posts %>
+<% end -%>

@@ -1,0 +1,7 @@
+<% content_block('Creating a new Alliance') do -%>
+  <%= error_messages_for :alliance %>
+  <% form_for @alliance, :html =>{:class => 'form_layout'} do |f| -%>
+    <%= render :partial => 'alliances/form', :locals => {:f => f} %>
+    <%= f.submit 'Create Alliance' %>
+  <% end -%>  
+<% end -%>

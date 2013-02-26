@@ -1,0 +1,24 @@
+<% unless mobs.blank? -%>
+  <table id="<%= table_id ||= 'npc_list' %>" cellpadding="0" cellspacing="0" class="sortable">
+    <tr class="head">
+      <th class="sortfirstasc">Name</th>
+      <th>Description</th>
+      <% if mobs && (mobs.first.respond_to?('quantity')) -%>
+        <th>Price</th>
+        <% show_qty = true -%>
+      <% else -%>
+        <% show_qty = false -%>
+      <% end -%>
+    </tr>
+    <% for mob in mobs -%>
+      <tr>
+        <td class="title"><%= link_to mob.name, mob_path(mob) %></td>
+        <td class="description"><%= truncate(mob.description, (trunc ||= 80)) %></td>
+        <% if show_qty -%>
+          <td><%= mob.quantity %></td>
+        <% end -%>
+      </tr>
+    <% end -%>
+  </table>
+  <%= javascript_tag("SortableTable.init('#{table_id}');") %>
+<% end -%>

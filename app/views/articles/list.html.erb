@@ -1,0 +1,6 @@
+<h2>Articles in <%= @category.category %></h2>
+<ul>
+  <% for article in @articles do %>
+    <li><%= link_to article.title, article_view_path(article, article.title.to_permalink) %></li>
+  <% end -%>
+</ul>

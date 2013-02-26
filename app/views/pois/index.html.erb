@@ -1,0 +1,4 @@
+<% content_block('Darkfall Points of Interest Database', {:header => 'h1'}) do -%>
+  <p><%= link_to 'Add Point of Interest', new_poi_path %> to database</p>
+  <%= render :partial => 'pois/pois_table', :locals => {:pois => @pois} %>
+<% end -%>

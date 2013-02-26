@@ -1,0 +1,22 @@
+<% content_block(@article.title, :header => 'h1') do -%>
+  <div id="tabs" style="margin-top: 20px;">
+    <ul>
+      <li><a href="#content">Content</a></li>
+      <li><a href="#threads">Threads (<%= @topics.length %>)</a></li>
+    </ul>
+    <div id="content">
+      <div id="body">
+        <%= @article.body %>
+      </div>
+      <% if admin? -%>
+        <%= link_to 'edit' , "/admin/articles/edit/#{@article.id}" %>
+      <% end -%>
+    </div>
+    <div id="threads">
+      <div id="forums">
+        <%= render :partial => 'topics/list_topicable_topics', :locals => {:topics => @topics, :topicable => @article} %>
+      </div>
+    </div>
+  </div>
+<% end -%>
+<%= javascript_tag "(function($){ $('#tabs').tabs(); })(jQuery);" %>

@@ -1,0 +1,25 @@
+<div class="block_title"><h2><%= @title %></h2></div>
+<% if @topics.length > 0 %>
+  <div class="step">
+    <table cellpadding="0px" cellspacing="0" class="outer">
+      <tr>
+        <td class="head">Forum</td>
+        <td class="head">Topic</td>
+        <td class="head">Posted</td>
+      </tr>
+    <% count = 0 %>
+    <% for topic in @topics %>
+      <% row_class = count.odd? ? 'odd' : 'even' %>
+      <tr>
+        <td class="<%=row_class%>"><%= link_to(h(topic.forum.name), forum_url(:id=>topic.forum_id)) %></td>
+        <td class="<%=row_class%>"><%= "<a href='/forum/#{topic.forum_id}/topic/#{topic.topic_id}#post#{topic.id}'>#{topic.title}</a>" %></td>
+        <td class="<%=row_class%>"><%= date_ago(topic.created_at) %></td>
+      </tr>
+      <tr>
+        <td colspan="3" class="<%=row_class%>"><%= topic.body[0,100] %></td>
+      </tr>
+      <% count += 1 %>
+    <% end %>
+    </table>
+  </div>  
+<% end %>

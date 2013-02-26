@@ -1,0 +1,21 @@
+<% content_block('Member Reputation', :header => 'h1') do -%>
+  <p>Reputation is gained by:</p>
+  <ul>
+      <li>Submitting or Editing the <%= link_to 'Mobs', mobs_path %> database with updates which are then approved by our moderators</li>
+      <li>Submitting or Editing the <%= link_to 'Points of Interest', pois_path %> database with updates which are then approved by our moderators.</li>
+      <li>Adding a Map Marker against an Item, Mob or Points of interest that is upvoted by members</li>
+      <li>Creating a Post against Items, Skills, Spells, Mobs etc that are upvoted by members</li>
+  </ul>
+  <p>Reputation is lost by:</p>
+  <ul>
+      <li>Submitting or Editing the Mobs database with updates which are then rejected by our moderators</li>
+      <li>Submitting or Editing the Points of Interest database with updates which are then rejected by our moderators</li>
+      <li>Downvotes on submitted Markers and Forum posts.</li>
+  </ul>
+  <h2>Reputation Benefits</h2>
+  <ul>
+    <li>Reputation > 400 - No Advertising</li>
+    <li>Reputation > 800 - No idea..yet..suggestions to our <%= link_to 'dev forums', '/forums/2' %> please.</li>
+  </ul>
+
+<% end -%>

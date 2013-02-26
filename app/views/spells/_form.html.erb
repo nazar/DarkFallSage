@@ -1,0 +1,31 @@
+<fieldset>
+  <legend>Spell</legend>
+  <%= f.label :name, 'Spell Name' %><%= f.text_field :name %><br/>
+  <%= f.label :icon %><%= f.file_field :icon  %>
+</fieldset>
+<fieldset>
+  <legend>Spell Type & Spell Target</legend>
+  <%= f.label :spell_type %><%= f.select :spell_type, Spell.spell_types_sorted_for_select %><br />
+  <%= f.label :sub_type, 'Damage Type' %><%= f.select :sub_type, Spell.sub_types_sorted_for_select, :include_blank => true %><br />
+  <%= f.label :spell_target %><%= f.select :spell_target, Spell.spell_targets_sorted_for_select %><br />
+  <%= f.label :school_id, 'Magic School' %><%= f.select :school_id, Spell.spell_schools_for_select %>
+</fieldset>
+<fieldset>
+  <legend>Extra</legend>
+  <%= f.label :mana %><%= f.text_field :mana %><br/>
+  <%= f.label :level %><%= f.text_field :level %><br/>
+  <%= f.label :cool_down %><%= f.text_field :cool_down %><br/>
+  <%= f.label :time_to_cast %><%= f.text_field :time_to_cast %>
+</fieldset>
+<fieldset>
+  <legend>Spell Description</legend>
+  <%= markup_area 'spell', 'description' %>
+</fieldset>
+<fieldset>
+  <legend>Spell Reagents</legend>
+  <%= render :partial => 'spell_reagents/edit_spell_reagents', :locals => {:spell_reagents => @spell.spell_reagents} %>
+</fieldset>
+<fieldset>
+  <legend>Prerequisites</legend>
+  <%= render :partial => 'prereqs/edit_prereqs', :locals => {:prereqs => @spell.prereqs, :prereqable => @spell} %>
+</fieldset>

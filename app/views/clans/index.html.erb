@@ -1,0 +1,4 @@
+<% content_block('Darkfall Clans', :header => 'h1' ) do -%>
+  <p><%= link_to 'Start a Clan.', new_clan_path %> to create clan forums. Forums can either be public, clan members only or clan and alliance members only.</p>
+  <%= render :partial => 'clans/clans_table', :locals => {:clans => @clans} %>
+<% end -%>  

@@ -1,0 +1,13 @@
+<% if not current_user %>
+  <p>Name<br/ >
+    <%= text_field 'comment', 'anon_name' %></p>
+  <p>URL<br>
+  <%= text_field 'comment', 'anon_url' %></p>
+<% end %>
+<p>Title<br />
+<%= text_field 'comment', 'title' %></p>
+Comments
+<%= markup_area 'comment', 'body', :rows => 3 %>
+<%= submit_tag 'Save Comment', :name => 'save_comment' %>
+<%= hidden_field 'commentable', 'commentable', :value => model.class %>
+<%= hidden_field 'commentable', 'commentable_id', :value => model.id %>

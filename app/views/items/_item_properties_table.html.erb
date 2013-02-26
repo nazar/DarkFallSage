@@ -1,0 +1,57 @@
+<table cellpadding="0" cellspacing="0" class="item_properties">
+  <%= item_table_row @item, 'item_type', 'Item Type', Item.item_types[@item.item_type].humanize %>
+  <%= item_table_row @item, 'durability' %>
+  <%= item_table_row @item, 'weight' %>
+  <%= item_table_row @item, 'npc_cost', 'Price' %>
+  <% if @item.item_type == 2 #weapon-%>
+    <%= item_table_row @item, 'weapon_rank', 'Rank' %>
+    <%= item_table_row @item, 'weapon_basic_damage', 'Damage' %>
+    <%= item_table_row @item, 'attack_speed', 'Attack Speed' %>
+  <% elsif @item.item_type == 3 #armour -%>
+    <%= item_table_row @item, 'encumbrance' %>
+    <tr>
+      <td colspan="2">
+        <table cellpadding="0" cellspacing="0" class="item_sub_prop">
+          <tr>
+            <td colspan="2"><strong>Protection</strong></td>
+          </tr>
+          <tr>
+            <td width="50%"><%= item_table_row_table @item, 'protect_acid', 'Acid' %></td>
+            <td width="50%"><%= item_table_row_table @item, 'protect_arcane', 'Arcane' %></td>
+          </tr>
+          <tr>
+            <td><%= item_table_row_table @item, 'protect_bludge', 'Bludgeon' %></td>
+            <td><%= item_table_row_table @item, 'protect_cold', 'Cold' %></td>  
+          </tr>
+          <tr>
+            <td><%= item_table_row_table @item, 'protect_fire', 'Fire' %></td>
+            <td><%= item_table_row_table @item, 'protect_light', 'Light' %></td>
+          </tr>
+          <tr>
+            <td><%= item_table_row_table @item, 'protect_impact', 'Impact' %></td>
+            <td><%= item_table_row_table @item, 'protect_holy', 'Holy' %></td>
+          </tr>
+          <tr>
+            <td><%= item_table_row_table @item, 'protect_malediction', 'Malediction' %></td>
+            <td><%= item_table_row_table @item, 'protect_mental', 'Mental' %></td>
+          </tr>
+          <tr>
+            <td><%= item_table_row_table @item, 'protect_pierce', 'Pierce' %></td>
+            <td><%= item_table_row_table @item, 'protect_slash', 'Slash' %></td>
+          </tr>
+          <tr>
+            <td colspan="2"><%= item_table_row_table @item, 'protect_unholy', 'Unholy' %></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  <% elsif @item.item_type == 5 #alchmeny-%>
+    <%= item_table_row @item, 'effects' %>
+    <%= item_table_row @item, 'quality' %>
+  <% elsif @item.item_type == 10 #alchmeny-%>
+    <%= item_table_row @item, 'effects' %>
+    <%= item_table_row @item, 'quality' %>
+  <% elsif @item.item_type == 7 #food-%>
+    <%= item_table_row @item, 'nourishment_duration', 'Nourish Duration' %>
+  <% end -%>
+</table>

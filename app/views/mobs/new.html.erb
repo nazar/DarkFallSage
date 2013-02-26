@@ -1,0 +1,8 @@
+<h1>Add Mob to Database</h1>
+<%= error_messages_for 'mob' -%>
+<% form_for @mob, :html => { :multipart => true, :class => 'form_layout' } do |f|  %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_tag('Create') %>
+<% end -%>
+<%= javascript_tag("jQuery('#mob_mob_type').attach(RemoteGetMobPropertiesForm, {form: '#new_mob', update: '#mob_properties'});") %>
+<%= render :partial => 'mobs/jquery_behaviours' %>

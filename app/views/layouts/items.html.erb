@@ -1,0 +1,43 @@
+<% inside_layout 'html_header' do -%>
+  <%= render :partial => 'layouts/header' %>
+  <% inside_layout '1column' do -%>
+    <table cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="20%" valign="top" style="padding-right: 10px;">
+          <div class="site_block">
+            <h3 class="ui-widget-header ui-corner-top">Item Categories</h3>
+            <div class="ui-widget ui-widget-content ui-corner-bottom" id="items_types">
+              <%= item_categories_nav(@item_type_id) %>
+              <br clear="all"/>
+            </div>
+            <% javascript_tag("conf.ui.theme_path = '/javascripts/jquery/tree/themes/'") %>
+            <%= javascript_tag("( function($) {$('#item_types').tree(tree_settings); } )(jQuery);") %>
+          </div>
+        </td>
+        <td valign="top">
+          <%= yield %>
+        </td>
+      </tr>
+    </table>
+  <% end -%>
+  <%= render :partial => 'layouts/footer' %>
+<% end -%>
+<% javascript_tag do -%>
+(function($) {
+  tallest = 0;
+  function equalHeight(group) {
+      group.each(function() {
+          thisHeight = $(this).height();
+          if(thisHeight > tallest) {
+              tallest = thisHeight;
+          }
+      });
+      group.css('min-height', tallest);
+  }
+
+  $(document).ready(function() {
+      equalHeight($("#items_content"));
+      equalHeight($("#items_types"));
+  });
+})(jQuery);
+<% end -%>

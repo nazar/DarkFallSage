@@ -1,0 +1,29 @@
+<div id="prereq_tabs" style="margin-top: 20px;">
+  <ul>
+    <% unless items.blank? -%>
+      <li><a href="#prerreq_tab-items">Items (<%= items.length %>)</a></li>
+    <% end -%>
+    <% unless skills.blank? %>
+      <li><a href="#prerreq_tab-skills">Skills (<%= skills.length %>)</a></li>
+    <% end -%>
+    <% unless spells.blank? %>
+      <li><a href="#prerreq_tab-spells">Spells (<%= spells.length %>)</a></li>
+    <% end -%>
+  </ul>
+  <% unless items.blank? -%>
+    <div id="prerreq_tab-items">
+      <%= render :partial => 'items/items_table', :locals => {:items => items, :hide => ['forums']} %>
+    </div>
+  <% end -%>
+  <% unless skills.blank? %>
+    <div id="prerreq_tab-skills">
+      <%= render :partial => 'skills/skills_table', :locals => {:skills => skills, :hide => ['forums']} %>
+    </div>
+  <% end -%>
+  <% unless spells.blank? %>
+    <div id="prerreq_tab-spells">
+      <%= render :partial => 'spells/spells_table', :locals => {:spells => spells, :hide => [:forums]} %>
+    </div>
+  <% end -%>
+</div>
+<%= javascript_tag "(function($){ $('#prereq_tabs').tabs(); })(jQuery);" %>

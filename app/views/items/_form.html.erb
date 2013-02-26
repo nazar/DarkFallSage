@@ -1,0 +1,10 @@
+<fieldset>
+  <legend>Darkfall Item Type</legend>
+  <%= f.label :name, 'Item Name' %><%= f.text_field :name %><br/>
+  <%= f.label :icon %><%= f.file_field :icon  %><br/>
+  <%= f.label :image %><%= f.file_field :image  %><br/>
+  <%= f.label :item_type %><%= f.select :item_type, Item.item_types_for_select %>
+</fieldset>
+<div id="item_properties">
+  <%= render :partial => 'item_properties_by_type', :locals => {:type => @item.item_type} %>
+</div>

@@ -1,0 +1,23 @@
+<table id="login_container">
+  <tr>
+    <td valign="top"  style="padding-left:5px; padding-right:5px;">
+      <h3 class="normal_header">Why Register?</h3>
+      <p>DarkFall Sage is a free website. Create your own profile and connect with other Darkfall adventureres.</p>
+      <h3 class="normal_header">Items, Skills and Spells Database</h3>
+      <p>Register and add or discuss any of Darkfall's Items, Skills or Spells</p>
+      <h3 class="normal_header">Articles Database</h3>
+      <p>Articles on gameplay and hints and tips</p>
+      <h3 class="normal_header">Forums</h3>
+      <p>Discuss gamming strategy on our unique forum system, where ieach item, spell or skill has it own forum,</p>
+      <h3 class="normal_header">Meet New Friends</h3>
+      <p>Find new friends.</p>
+      <h3 class="normal_header">Make New Enemies</h3>
+      <p>And make new enemies ;).</p>
+    </td>
+    <td align="right">
+      <% form_tag session_signup_path, :id => "signup"  do  %>
+        <%= render :partial => 'form_signup' -%>
+      <% end %>
+    </td>
+  </tr>
+</table>

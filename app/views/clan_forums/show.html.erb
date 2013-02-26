@@ -1,0 +1,3 @@
+<% content_block("Viewing Topics in #{@forum.name} - Clan #{link_to(@clan.name, clan_path(@clan))}", :header => 'h1') do -%>
+  <%= render :partial => 'topics/list_topicable_topics', :locals => {:topics => @topics, :topicable => @forum} %>
+<% end -%>

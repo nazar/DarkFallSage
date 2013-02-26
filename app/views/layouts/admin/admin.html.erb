@@ -1,0 +1,12 @@
+<% add_extra_header_content(javascript_include_tag :defaults, "fckeditor/fckeditor") -%>
+<% add_extra_header_content(active_scaffold_includes) -%>
+<% add_extra_header_content(stylesheet_link_tag 'admin') -%>
+<% inside_layout 'html_header' do -%>
+  <%= render :partial => 'layouts/header' %>
+  <% inside_layout '1column' do -%>
+    <div id="admin">
+      <%= yield %>
+    </div>
+  <% end -%>
+  <%= render :partial => 'layouts/footer' %>
+<% end -%>

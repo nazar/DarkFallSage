@@ -1,0 +1,22 @@
+<% content_block(link_to(@news.title, view_news_path(@news)) + ' - posted in ' + @news.categories.collect{|cat| link_to cat.category, news_category_path(cat)}.join(', '), {:header => 'h2'}) do -%>
+  <div id="tabs">
+    <ul>
+      <li><a href="#news">Content</a></li>
+      <li><a href="#threads">Threads (<%= @topics.length %>)</a></li>
+    </ul>
+    <div id="news">
+      <div class="news_post_info">
+        Posted by <%= link_to @news.user.pretty_name, profile_path(@news.user.login) %> <%= time_ago_in_words(@news.created_at) %> ago
+      </div>
+      <div class="news_item">
+        <%= @news.body %>
+      </div>
+    </div>
+    <div id="threads">
+      <div id="forums">
+        <%= render :partial => 'topics/list_topicable_topics', :locals => {:topics => @topics, :topicable => @news} %>
+      </div>
+    </div>
+  </div>
+<% end -%>
+<%= javascript_tag "(function($){ $('#tabs').tabs(); })(jQuery);" %>

@@ -1,0 +1,6 @@
+<h1>Editing Spell <%= h @spell.name %></h1>
+<%= error_messages_for 'spell' -%>
+<% form_for @spell, :html => { :multipart => true, :class => 'form_layout' } do |f|  %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_tag('Update') %>
+<% end -%>

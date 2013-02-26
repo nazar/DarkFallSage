@@ -1,0 +1,10 @@
+<tr id="skin_<%=skin.id-%>">
+  <td>
+    <%= select_tag "skin[#{skin.id}][item_id]", options_for_select(Item.all(:order => 'name').collect{|obj| [obj.name.capitalize, obj.id] }, skin.item_id),
+        :id => "skin_skin_id_#{skin.id}" %>
+  </td>
+  <td>
+    <%= text_field_tag "skin[#{skin.id}][quantity]", skin.quantity   %>
+  </td>
+  <td><%= select_tag "skin[#{skin.id}][frequency]", options_for_select(MobItem.frequency_types.sort.collect{|f|[f.last, f.first]}, skin.frequency) %></td>
+</tr>

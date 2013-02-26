@@ -1,0 +1,13 @@
+<table id="edit_spell_sells" class="deps_table" cellpadding="0" cellspacing="0">
+  <tr>
+    <th>Spell</th>
+    <th>Price</th>
+  </tr>
+  <% for spell in spells -%>
+    <%= render :partial => 'mobs/edit_sells_spell', :locals => {:spell => spell} %>
+  <% end -%>
+  <tr id="spell_sells_last_row">&nbsp;</tr>
+</table>
+<p>
+  <%= link_to 'Add Merchant Spell', sells_spells_mobs_path, :id => 'add_sell_spell' %>
+</p>

@@ -1,0 +1,9 @@
+<% content_block(link_to(h(@user.name), profile_path(@user.login)) +' - All Topics') do -%>
+  <%= will_paginate @topics %>
+  <% unless
+     @topics.blank? -%>
+    <%= render :partial => 'forums/topics_table', :locals => {:topics => @topics}  %>
+  <% else -%>
+    <p>No topics yet...</p>
+  <% end -%>  <%= will_paginate @topics %>
+<% end -%>

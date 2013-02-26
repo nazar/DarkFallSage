@@ -1,0 +1,10 @@
+<table cellpadding="0" cellspacing="0" class="item_properties">
+  <%= mob_table_row @mob, 'mob_item_type_to_s', 'Type', @mob.mob_item_type_to_s.humanize %>
+  <% if @mob.mob_type == 1 -%>
+    <%= mob_table_row @mob, 'hp', 'Hit Points' %>
+    <%= mob_table_row @mob, 'difficulty_to_s', 'Difficulty', @mob.difficulty_to_s.humanize %>
+    <%= mob_table_row @mob, 'caster_to_f', 'Spell Caster' %>
+    <%= mob_table_row @mob, 'melee_weakness', 'Melee Weakness' %>
+    <%= mob_table_row @mob, 'spell_weakness', 'Spell Weakness' %>
+  <% end -%>
+</table>

@@ -1,0 +1,60 @@
+<% hide ||= [] -%>
+<% unless spells.blank? -%>
+  <table id="<%= table_id ||= 'spells_list' %>" cellpadding="0" cellspacing="0" class="sortable">
+    <tr class="head">
+      <th class="nosort">&nbsp;</th>
+      <th>Spell</th>
+      <th>Description</th>
+      <% unless hide.include?(:school) -%>
+        <th>School</th>
+      <% end -%>
+      <% if (spells.first.respond_to?('qty')) -%>
+        <% show_qty = true -%>
+        <th class="number">Qty</th>
+      <% else -%>
+        <% show_qty = false -%>
+      <% end -%>
+      <th class="sortfirstasc number" title="Level">Lvl</th>
+      <th class="number" title="Gold">Gld</th>
+      <% unless hide.include?(:type) -%>
+        <th>Type</th>
+      <% end -%>  
+      <th title="Affects">Aff</th>
+      <% unless hide.include?(:sub_type) -%>
+        <th title="Spell Damage SubType">DT</th>
+      <% end -%>
+      <% unless hide.include?(:forums) -%>
+        <th title="Topics">T</th>
+        <th title="Posts">P</th>
+      <% end -%>  
+    </tr>
+    <% for item in spells -%>
+      <tr>
+        <td class="icon"><%= link_to image_tag(item.icon_path, :alt => item.name), spell_path(item), :class => 'info_popup' %></td>
+        <td class="title"><%= link_to item.name, spell_path(item) %></td>
+        <td class="description"><%= strip_tags(truncate(item.description, (trunc ||= 80))) %></td>
+        <% unless hide.include?(:school) -%>
+          <td class="info"><%= link_to item.school.name, skill_path(item.school) unless item.school.blank?  %></td>
+        <% end -%>  
+        <% if show_qty -%>
+          <td class="info number"><%= item.qty %></td>
+        <% end -%>
+        <td class="info number"><%= item.level %></td>
+        <td class="number"><%= item.gold.to_i %></td>
+        <% unless hide.include?(:type) -%>
+          <td class="info"><%= link_to item.spell_type_to_s, spell_by_type_path(item.spell_type) %></td>
+        <% end -%>  
+        <td><%= item.spell_target_to_s %></td>
+        <% unless hide.include?(:sub_type) -%>
+          <td><%= item.sub_type_to_s %></td>
+        <% end -%>  
+        <% unless hide.include?(:forums) -%>
+          <td class="info number"><%= item.topics_count %></td>
+          <td class="info number"><%= item.posts_count %></td>
+        <% end -%>  
+      </tr>
+    <% end -%>
+  </table>
+  <%= javascript_tag("jQuery('a.info_popup').attach(Popup);") %>
+  <%= javascript_tag("SortableTable.init('#{table_id}');") %>
+<% end -%>

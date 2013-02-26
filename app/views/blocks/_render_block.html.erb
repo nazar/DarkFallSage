@@ -1,0 +1,6 @@
+<div class="<%= block_placement_to_css_class(block) %> site_block">
+  <h3 class="ui-widget-header ui-corner-top"><%= block.title %></h3>
+  <div class="ui-widget ui-widget-content ui-corner-bottom">
+    <%= render_block_content(block) %>
+  </div>
+</div>

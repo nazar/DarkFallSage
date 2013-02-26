@@ -1,0 +1,13 @@
+<div class="crumbs" style="margin-top:1.1em;">
+  <strong><%= link_to "Forums", home_path %> <%= link_to h(@topicable.name), forum_url(:id=>@topicable) %></strong>
+</div>
+<div class="block_title"><h2 id="new_topic">Replying to a post</h2></div>
+<br />
+<% form_tag reply_topic_path(@topic), :id => 'forumform', :name => 'forumform' do -%>
+  <%= render :partial => '/posts/post_form', :locals => {:forum => @topicable, :topic => @topic, :post => @post} %>
+<% end -%>
+<h3>Replying to <%= @topic.title %> by <%= @post.user.login %></h3>
+<div class="step">
+  <%= @post.formatted_body %>
+</div><br />
+                                                         

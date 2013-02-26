@@ -1,0 +1,8 @@
+<% if clan.access_type == 0 -%>
+  <p>Membership by inivitation only.</p>
+<% elsif clan.access_type == 1 -%>
+  <p>This club requires all members to submit an application.</p>
+  <%= render :partial => 'clan_applications/application', :locals => {:clan => clan} %>
+<% else -%>
+  <%= render :partial => 'clans/join', :locals => {:clan => clan} %>
+<% end -%>

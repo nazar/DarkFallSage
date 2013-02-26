@@ -1,0 +1,121 @@
+<% tabs ||= 'mob_tabs' -%>
+<% hide ||= [] %>
+<% content_block(title, :header => 'h1') do -%>
+  <%= format_red_cloth(mob.description) %>
+  <table>
+    <tr>
+      <td width="50%" valign="top" class="properties-row">
+        <%= render :partial => 'mobs/mob_properties_table' %>
+      </td>
+      <td valign="top" align="right" class="properties-row">
+        <table cellpadding="0" cellspacing="0" class="item_properties">
+          <%= mob_table_row mob, 'user', 'Added By', link_to(h(mob.user.login), profile_path(mob.user.login))  %>
+          <%= mob_table_row mob, 'updater', 'Updated By', link_to(h(mob.updater.login), profile_path(mob.updater.login)) unless mob.updater.blank? %>
+          <% if Moderator.db_moderator?(current_user) -%>
+            <%= mob_table_row mob, 'revision_number', 'Revision' %>
+            <%= mob_table_row mob, 'revisions', 'Total Revisions', link_to(mob.revisions.length.to_i + 1, mob_revisions_path(mob, nil)) if mob.respond_to?('revisions')%>
+            <%= mob_table_row mob, 'updated_at', 'Updated At', mob.updated_at.strftime("%B %d, %Y") %>
+            <% if last_approved = Mob.last_approved(mob) -%>
+              <%= mob_table_row last_approved, 'revision_number', 'Last Approved Rev', last_approved.revision_number %>
+              <%= mob_table_row last_approved, 'revision_number', 'Approved By', last_approved.approver.login %>
+            <% end -%>
+          <% end -%>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <% unless hide.include?(:edit) -%>
+    <div class="padded-top clearfix">
+      <% form_tag mob_edit_submit_path(mob), :style => 'float: left;' do -%>
+          <%= submit_tag 'Edit', :name => 'edit' %>
+          <% if Moderator.db_moderator?(current_user) -%>
+            <%= submit_tag 'Delete', :name => 'delete', :confirm => "Delete Mob #{h(mob.name)}" %>
+          <% end -%>
+      <% end -%>
+      <% if current_user && (not Moderator.db_moderator?(mob.user)) && (mob.revisable_number == 1) && (mob.approved_by.blank?)  -%>
+        <% form_tag mob_approve_path(mob), :style => 'float:left; padding-left: 3px;' do -%>
+          <%= submit_tag "Approve Submission", :name => 'approve' %>
+          <%= submit_tag "Reject Submission", :name => 'reject' %>
+        <% end -%>
+      <% end -%>
+    </div>
+  <% end -%>
+  <div id="<%= tabs %>" style="margin-top: 20px;">
+    <ul>
+      <% unless drops.blank? -%>
+        <li><a href="#tab-drops<%= tabs %>">Drops (<%= drops.length %>)</a></li>
+      <% end -%>
+      <% unless skins.blank? %>
+        <li><a href="#tab-skins<%= tabs %>">Skins (<%= skins.length %>)</a></li>
+      <% end -%>
+      <% unless casts.blank? -%>
+        <li><a href="#tab-casts<%= tabs %>">Casts Spells (<%= casts.length %>)</a></li>
+      <% end -%>
+      <% unless item_sells.blank?  %>
+        <li><a href="#tab-sells-items<%= tabs %>">Sells Items (<%= item_sells.length %>)</a></li>
+      <% end -%>
+      <% unless spell_sells.blank?  %>
+        <li><a href="#tab-sells-spells<%= tabs %>">Sells Spell (<%= spell_sells.length %>)</a></li>
+      <% end -%>
+      <% unless hide.include?(:topics) -%>
+        <li><a href="#tab-threads<%= tabs %>">Threads (<%= mob.topics_count.to_i %>)</a></li>
+      <% end -%>
+      <% unless hide.include?(:images) -%>
+        <li><a href="#tab-images<%= tabs %>">Images (<%= mob.images_count %>)</a></li>
+      <% end -%>
+      <% unless hide.include?(:maps) -%>
+        <li><a href="#tab-map<%= tabs %>">Mob Locations (<%= mob.markers_count %>)</a></li>
+      <% end -%>  
+    </ul>
+    <% unless drops.blank? -%>
+      <div id="tab-drops<%= tabs %>">
+        <%= render :partial => 'mobs/items_drop_table', :locals => {:items => drops, :hide => [], :item_id => 'drops', 
+                                                                    :table_id => "items_drop_table_#{tabs}", :frequency => true} %>
+      </div>
+    <% end -%>
+    <% unless skins.blank? -%>
+      <div id="tab-skins<%= tabs %>">
+        <%= render :partial => 'mobs/items_drop_table', :locals => {:items => skins, :hide => [], :item_id => 'skins',
+                                                                     :table_id => "items_skin_table_#{tabs}", :frequency => true} %>
+      </div>
+    <% end -%>
+    <% unless casts.blank? -%>
+      <div id="tab-casts<%= tabs %>">
+        <%= render :partial => 'spells/spells_table', :locals => {:spells => casts} %>
+      </div>
+    <% end -%>
+    <% unless item_sells.blank? -%>
+      <div id="tab-sells-items<%= tabs %>">
+        <%= render :partial => 'mobs/items_sell_table', :locals => {:items => item_sells, :hide => [], :item_id => 'item_sells'} %>
+      </div>
+    <% end -%>
+    <% unless spell_sells.blank? -%>
+      <div id="tab-sells-spells<%= tabs %>">
+        <%= render :partial => 'mobs/spells_sell_table', :locals => {:spells => spell_sells, :hide => [], :item_id => 'spells_sells'} %>
+      </div>
+    <% end -%>
+    <% unless hide.include?(:topics) -%>
+      <div id="tab-threads<%= tabs %>">
+        <div id="forums">
+        <%= render :partial => 'topics/list_topicable_topics', :locals => {:topics => topics, :topicable => mob} %>
+        </div>
+      </div>
+    <% end -%>
+    <% unless hide.include?(:images) -%>
+      <div id="tab-images<%= tabs %>">
+        <%= render :partial => 'images/images_tab', :locals => {:images => images, :objekt => mob} %>
+      </div>
+    <% end -%>
+    <% unless hide.include?(:maps) -%>
+      <div id='tab-map<%= tabs %>'>
+        <p><%= link_to_remote('Add/Edit ', :url => add_map_path(mob.class.to_s, mob.id), :id => 'add_map') %> my Mob locations to the Darkfall Map.</p>
+        <% unless mob.markers.blank? -%>
+          <%= render :partial => 'maps/map_viewer', :locals => {:data_url => mob_markers_path(mob.id)} %>
+        <% else -%>
+          <div id="google_map">&nbsp;</div>
+        <% end -%>  
+      </div>
+    <% end -%>  
+  </div>
+<% end -%>  
+<%= javascript_tag "(function($){ $('##{tabs}').tabs(); })(jQuery);" %>

@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title><%= @page_title %></title>
+	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+	<meta name="description" content="<%= strip_tags @page_description %>" />
+	<meta name="keywords" content="Darkfall, Dark Fall, guides, games, articles, forums, guilds" />
+	<meta name="robots" content="index, follow" />
+  <meta name="verify-v1" content="DvPYxWs4wOHdEHwnIIUuXWPgiVhXQDrYHbxf1tCySqg=" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <%= javascript_include_tag 'prototype', 'effects', 'maps','jstoolbar/jstoolbar', 'tablesort', 'controls', :cache => 'site' %>
+  <%= jquery_include_tag 'jquery', 'jquery.livequery', 'jquery.scrollTo', 'jquery.clearForm', 'lowpro.jquery', 'jquery.hoverIntent.minified',
+          'bgiframe_2.1.1/jquery.bgiframe.min', 'tree/css.js', 'tree/tree_component', 'jquery.bt', 'ui/tabs', :cache => 'jquery'  %>
+  <%= jquery_include_tag 'jquery.bt', 'behaviour.jquery', 'behaviour.markup.jquery', 'behaviour.forum.jquery', 'behaviour.items.jquery', :cache => 'behave'  %>
+  <%= javascript_include_tag 'application' %>
+  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= MAP_KEY %>" type="text/javascript"></script>
+  <!--[if IE]><script src="/javascripts/jquery/excanvas_0002/excanvas-compressed.js" type="text/javascript" charset="utf-8"></script><![endif]-->
+  <%= stylesheet_link_tag 'application', 'jstoolbar', 'sortable', 'tree_component', 'dark-hive', :cache => 'styles' %>
+  <%= get_extra_header_content -%>
+ </head>
+<body>
+  <%= yield %>
+  <script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+  try {
+  var pageTracker = _gat._getTracker("UA-919326-4");
+  pageTracker._trackPageview();
+  } catch(err) {}</script>
+  <%= get_footer_script %>
+  <script type="text/javascript" src="http://stats.darkfallsage.com/php-stats.js.php"></script>
+  <noscript><img src="http://stats.darkfallsage.com/php-stats.php" border="0" alt="" /></noscript> 
+</body>
+</html>

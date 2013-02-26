@@ -1,0 +1,7 @@
+<% inside_layout 'html_header' do -%>
+  <%= render :partial => 'layouts/header' %>
+  <% inside_layout '3column' do -%>
+    <%= yield %>
+  <% end -%>
+  <%= render :partial => 'layouts/footer' %>
+<% end -%>

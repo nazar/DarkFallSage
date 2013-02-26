@@ -1,0 +1,42 @@
+<%= render :partial => 'navbar', :locals => {:action => :details} %>
+<% form_for :user, current_user, :url => edit_profile_path(current_user.login) do |f| -%>
+  <fieldset class="form_layout">
+    <legend>Your Details</legend>
+    <%= label :user, :name %><%= f.text_field :name, :class => 'inputtext' %> <br />
+    <% fields_for :profile, current_user.profile do |profile|   -%>
+      <%= label :profile, :gender %><%= profile.select :gender, UserProfile.gender_types.sort.collect{ |e| [e.last, e.first] } , {}, :class => 'inputtext' %> <br />
+      <%= label :profile, :country %><%= profile.country_select :country, ['United Kingdom', 'Germany', 'France', 'Canada', 'United States', 'Japan' ], {}, {:class => 'inputtext'} %><br />
+      <label for="profile_state">County/State</label><%= profile.text_field :state, :class => 'inputtext' %><br />
+      <label for="bithday">Birthday</label><div id="birthday"><%= profile.date_select :birth_day, :start_year => 1920, :end_year => 2008, :order => [:day, :month, :year], :include_blank => true, :default => nil %></div><br />
+      <%= label :profile, :yahoo %><%= profile.text_field :yahoo, :class => 'inputtext' %><br />
+      <%= label :profile, :aim %><%= profile.text_field :aim, :class => 'inputtext' %><br />
+      <%= label :profile, :msn %><%= profile.text_field :msn, :class => 'inputtext' %>
+    <% end -%>
+  </fieldset>
+  <fieldset class="form_layout">
+    <legend>In Game Details</legend>
+    <% fields_for :profile, current_user.profile do |profile|   -%>
+      <%= label :profile, :game_nick, 'Character Name' %><%= profile.text_field :game_nick, :class => 'inputtext' %><br />
+      <%= label :profile, :game_gender %><%= profile.select :game_gender, UserProfile.gender_types.sort.collect{ |e| [e.last, e.first] } , {}, :class => 'inputtext' %> <br />      
+      <%= label :profile, :game_race %><%= profile.select :game_race, UserProfile.game_races.sort.collect{ |e| [e.last, e.first] } , {}, :class => 'inputtext' %> <br />
+      <%= label :profile, :game_clan, 'Clan' %><%= profile.text_field :game_clan, :class => 'inputtext' %><br />
+    <% end -%>
+  </fieldset>
+  <fieldset class="form_layout">
+    <legend>Hardware Details</legend>
+    <% fields_for :profile, current_user.profile do |profile|   -%>
+      <%= label :profile, :pc_processor, 'CPU' %><%= profile.text_field :pc_processor, :class => 'inputtext' %><br />
+      <%= label :profile, :pc_ram, 'RAM' %><%= profile.text_field :pc_ram, :class => 'inputtext' %><br />
+      <%= label :profile, :pc_video_card, 'Video Card' %><%= profile.text_field :pc_video_card, :class => 'inputtext' %><br />
+      <%= label :profile, :pc_video_driver_v, 'Video Driver Version' %><%= profile.text_field :pc_video_driver_v, :class => 'inputtext' %><br />
+    <% end -%>
+  </fieldset>
+  <fieldset class="form_layout">
+    <legend>About Yourself</legend>
+    <% fields_for :profile, current_user.profile do |profile|   -%>
+      <%= markup_area :profile, :bio %>
+    <% end -%>
+  </fieldset>
+  <p><%= submit_tag 'Save', :disable_with => 'Saving', :class => 'inputButton' %></p>
+<% end -%>
+

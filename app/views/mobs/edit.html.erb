@@ -1,0 +1,16 @@
+<h1>Editing <%= h @mob.name %></h1>
+<% form_for @mob, :html => { :multipart => true, :class => 'form_layout' } do |f|  %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_tag('Update') %>
+<% end -%>
+<br clear="all"/>
+<% if @edit_map -%>
+  <div id="map_edit_block">
+    <fieldset>
+      <legend>Item Locations</legend>
+      <%= render :partial => 'maps/markable_edit', :locals => {:markable => @mob, :data_url => mob_markers_path(@mob.id), :markers => @markers} %>
+    </fieldset>
+  </div>
+<% end -%>  
+<%= javascript_tag("jQuery('#mob_mob_type').attach(RemoteGetMobPropertiesForm, {form: '#edit_mob_#{@mob.id}', update: '#mob_properties'});") %>
+<%= render :partial => 'mobs/jquery_behaviours' %>
